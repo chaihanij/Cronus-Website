@@ -1,0 +1,26 @@
+<section id="blog" class="container">
+    <div class="center">
+        <h2><%= @wiki.title %></h2>
+        <p class="lead"><%= @wiki.description %></p>
+    </div>
+    <div class="blog">
+        <div class="row">
+            <div class="col-md-8">
+                <% if (@wiki.body && @wiki.body != '')%>
+                 <div class="bs-example">
+                    <%= @wiki.body.html_safe %>
+                </div>
+                <% end %>
+                
+            </div>
+            <div class="col-md-4">
+                <div class="bs-example">
+                    <%= list_by_root(@wiki.root).html_safe %>
+                </div>
+                <% if can? :manage , edit_wiki_path %>
+                    <%= link_to 'Edit', edit_wiki_path(@wiki),class: "btn btn-primary btn-block" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,58 @@
+<%= form_for(@announcement, html: {class: 'form-horizontal'}) do |f| %>
+    <% if @announcement.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2> 
+        <ul>
+        <% @announcement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %> 
+    <%= f.hidden_field :email ,:value => current_user.email %>
+    <div class="form-group">
+        <%= f.label :title, class: "col-sm-2 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :title, id: "title", autocomplete: "off", class: "form-control", required: "required"%>
+        </div>
+    </div>
+    <div class="form-group">
+        <%= f.label :description, class: "col-sm-2 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_area :description, id: "description", autocomplete: "off", class: "form-control",required: "required" %>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Image</label>
+        <div class="col-sm-8" >
+          <%= f.file_field :image, id:":image" %>
+        </div>
+    </div>
+     <!-- <div class="form-group" id="coverImagePreviewDiv" > 
+        <label class="col-sm-2 control-label">Preview Cover Image</label>
+         <div class="col-sm-8">
+            <img id="coverImagePreview" class="img-responsive size_image"/>
+        </div>
+    </div> -->
+    <div class="form-group">
+        <%= f.label :body, class: "col-sm-2 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_area :body, id:"body"%>
+        </div>
+    </div>  
+    <div class="form-group">
+      <div class="col-sm-12 col-sm-offset-2">
+          <%= f.submit class: "btn btn-primary", required: "required"%>
+      </div>
+    </div>
+<% end %>
+<script type="text/javascript">
+ $(document).ready(function() {
+    $('#body').summernote(
+      {
+          height:300,
+          maximumImageFileSize: 1048576
+      } 
+    );
+ });
+</script>

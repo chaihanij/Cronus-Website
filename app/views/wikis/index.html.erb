@@ -1,0 +1,63 @@
+<section id="recent-works">
+    <div class="container">
+        <div class="center wow fadeInDown">
+            <h2>Wiki</h2>
+            <p class="lead">Wiki in system platform development team.</p>
+        </div>        
+        <div class="row">
+            <div class="col-md-8">
+                <div id="role_admin">
+                    <%= render 'adminItem' %>
+                </div>
+                <div id="role_user" >
+                    <%= render 'userItem' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="widget search">
+                    <%= form_tag wikis_path, :method => 'get', id: "frole_user" do %>
+                        <div class="form-group">
+                            <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+                         </div>
+                    <% end %>
+                    <%= form_tag wikis_path, :method => 'get', id: "frole_admin" do %>
+                        <div class="form-group">
+                            <%= text_field_tag :search_all, params[:search_all] , class: "form-control search_box", id:"search_all", placeholder: "Search"%>    
+                         </div>
+                    <% end %>
+                    <form role="form">
+                        <% if can? :manage, new_product_path %>
+                            <div class="form-group">
+                                <select id="view" class="form-control">
+                                    <option id="1" value="0">user view</option>
+                                    <option id="2" value="1">admin view</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                              <%= link_to "New Wiki", new_wiki_path, class: "btn btn-primary btn-block" %>
+                            </div>
+                        <% end %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    $('#role_admin').hide();
+    $('#frole_admin').hide();
+    $('#view').change(function() {
+        var x = $("#view").val();
+        if (x == 0) {
+            $("#role_user").show();
+            $('#role_admin').hide();
+            $("#frole_user").show();
+            $('#frole_admin').hide();
+        } else if (x ==1 ) {
+            $("#role_admin").show();
+            $('#role_user').hide();
+            $("#frole_admin").show();
+            $('#frole_user').hide();
+        };
+    });
+</script>

@@ -1,0 +1,22 @@
+<section>
+    <div class="container">
+        <div class="center wow fadeInDown">
+            <h2>Member</h2>
+            <!-- <p class="lead">Member</p> -->
+        </div>        
+        <div class="row">
+        	<div class="col-md-8">
+        		<%= render 'user' %>
+        	</div>
+            <div class="col-md-4">
+                <div class="widget search">
+	                <%= form_tag users_path, :method => 'get' do %>
+	                    <div class="form-group">
+	                        <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+	                     </div>
+	                <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,101 @@
+<section id="blog" class="container">
+  <div class="center">
+      <h1><%= @package.name %></h2>
+      <p class="lead">
+          <% if  @package.release_package %>
+            <span class="label label-success">release</span>
+          <% end %>    
+          <% if @package.emergency_package %>
+            <span class="label label-warning">emergency</span>
+          <% end %>
+          <% if @package.notwork_package %>
+          <span class="label label-danger">broken</span>
+          <% end %>
+      </p>
+  </div>
+  <div class="blog">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="form-horizontal" role="form">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">OS</label>
+                <div class="col-sm-10">
+                    <% if (@package.operating_system != nil) then %>
+                      <label class="control-label"> <%= @package.operating_system.name %>&nbsp;&nbsp;&nbsp;<%= @package.operating_system.version %> </label>
+                    <% else %>
+                       <label class="control-label">Othen operating system</label>
+                    <% end %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Product</label>
+                <div class="col-sm-10">
+                    <% if (@package.product.name != nil) then %>
+                      <label class="control-label">
+                         <%= @package.product.name %>
+                      </label>
+                    <% else %>
+                       <label class="control-label">Othen product</label>
+                    <% end %>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">Build date</label>
+                  <div class="col-sm-10" >
+                    <label class="control-label">
+                         <%= @package.build_date %>
+                    </label>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">Release date</label>
+                  <div class="col-sm-10" >
+                    <label class="control-label">
+                      <%= @package.release_date %>
+                    </label>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Release note</label>
+                <div class="col-sm-10">
+                    <label class="control-label">
+                      <a href="<%= @package.release_note %>">
+                        <%= @package.release_note_file_name %>
+                      </a>
+                    </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Description</label>
+                <div class="col-sm-10">
+                    <% if (@package.description != nil) then %>
+                    <div class="jumbotron">
+                        <%= @package.description.html_safe %>
+                    </div>
+                    <% end %>  
+                </div>
+              </div>
+              <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-10">
+                  <% if (@package.package_file_name != nil) then %>
+                  <a href="<%= @package.package %>" class="btn btn-primary" >Download</a>
+                  <br>
+                  <I>Size&nbsp;( <b><%= @package.package_file_size %></b> )</I>
+                  <br>
+                  <I>Checksum&nbsp;&nbsp;&nbsp;( <b><%= @package.checksum %></b> )</I>
+                  <% end %>
+                </div>
+              </div>
+          </div>     
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+    </div>
+  </div>
+</section>
+
+
+
+

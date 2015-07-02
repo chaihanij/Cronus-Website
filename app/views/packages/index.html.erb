@@ -1,0 +1,23 @@
+<section id="blog" class="container">
+    <div class="center">
+        <h2>Packages</h2>
+        <p class="lead">Packages in system platform development team.</p>
+    </div>
+    <div class="blog">
+        <div class="row">
+            <div class="col-md-8">
+                <%= render 'package' %>
+            </div>
+            <div class="col-md-4">
+                <%= form_tag packages_path, :method => 'get' do %>
+                    <div class="form-group">
+                        <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+                     </div>
+                <% end %>
+                <div class="widget search">
+                    <%= link_to "New Package", new_package_path, class: "btn btn-primary btn-block" %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

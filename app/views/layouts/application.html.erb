@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>CronusWebsite</title>
+	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= stylesheet_link_tag    'application-user', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application-user', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body class="homepage">
+		<%= render 'layouts/header' %>
+		<%= render 'layouts/flash_messages' %>
+		<%= yield %>
+
+	</body>
+</html>

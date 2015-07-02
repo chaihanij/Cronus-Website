@@ -1,0 +1,39 @@
+<div class="table-responsive">
+	<table class="table">
+  		<thead>
+  			<tr>
+  				<th>No</th>
+  				<th><%= sortable "title" %></th>
+  				<th>Description</th>
+  				<th colspan="3"></th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			<% @announcements_admin.each_with_index do |announcement,index| %>
+  			<tr>
+  				<td><%= index+1 %></td>
+  				<td><%= announcement.title %></td>
+  				<td><%= truncate(announcement.description , length: 80) { link_to "more", announcement } %></td>
+  				<td align="center">
+  					<%= link_to announcement, method: :delete, data: { confirm: 'Are you sure?' } do %>
+	    				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+	    			<% end %>
+  				</td>
+  				<td align="center">
+  					<%= link_to edit_announcement_path(announcement) do %>
+						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	   				<% end %>
+  				</td>
+  				<td align="center">
+  					<%= link_to announcement  do %>
+	   					<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+	   				<% end %>
+  				</td>
+  			</tr>
+  			<% end %>
+  		</tbody>
+	</table>
+</div>
+<div class="text-center">
+  <%= paginate @announcements_admin,:param_name => "admin_page" %>
+</div>

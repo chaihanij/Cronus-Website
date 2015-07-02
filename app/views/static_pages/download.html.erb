@@ -1,0 +1,126 @@
+<section id="contact-info">
+    <div class="center">                
+        <h2>Download</h2>
+        <p class="lead">Software Download Center. Select the product you wish to download.</p>
+    </div>
+    <div  class="container">
+   		<% @products.each do |product| %>
+		<div class="row item" >
+			<h4><%= link_to product.name , product %></h4>
+		<!-- <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;<%= product.description[0..100] %>...more</p> -->
+			<div class="row">
+				<div class="col-md-12">
+                    <h5>Release Package</h5>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= product.name %></b>'s most current release is product 
+                    
+                    <% if (product.lastest_package_release != nil) %>
+                    <code><%= link_to  product.lastest_package_release.version, product.lastest_package_release %></code>
+                    <% end %>
+                    
+
+                    </p>
+                    <% if (product.lastest_package_release != nil) %>
+                    <p>
+                    <a href="<%= product.lastest_package_release.package %>" class="btn btn-primary" >Get the <%= product.lastest_package_release.name %> !</a>
+                    <% if product.lastest_package_release.release_package %>
+                        <span class="label label-success">Release</span>&nbsp;
+                    <% end %>
+                    <% if product.lastest_package_release.emergency_package %>
+                        <span class="label label-warning">Emergency</span>&nbsp;
+                    <% end %>
+                    <I>Size&nbsp;(<b><%= product.lastest_package_release.package_file_size %></b>)</I>,&nbsp;
+                    <I>Checksum&nbsp;(<b><%= product.lastest_package_release.checksum %></b>)</I>
+                    </p>
+            
+                    <% if (product.lastest_package_release.release_note_file_name != nil) then %>
+                    <h5>Release Notes for 
+                        <a href="<%= product.lastest_package_release.release_note %>"><%= product.lastest_package_release.name %></a>
+                    </h5>
+                    <% end %>
+                    <% end %>
+				</div>
+			</div>
+		</div>
+		<% end %>
+   	</div>
+</section>
+<section id="bottom">
+    <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+        <div class="row">            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Announcements</h3>
+                    <ul>
+                    <% Announcement.limit_five.each do |announcement| %>
+                        <li><%= link_to announcement.title , announcement %></li>   
+                    <% end %>
+                    </ul>
+                </div>    
+            </div>            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Events</h3>
+                    <ul>
+                        <% Event.limit_five.each do |event| %>
+                        <li><%= link_to event.title , event %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Products</h3>
+                    <ul>
+                        <% Product.limit_five.each do |product| %>
+                            <li><%= link_to product.name , product %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Wikis</h3>
+                    <ul>
+                        <% Wiki.limit_five.each do |wiki| %>
+                            <li><%= link_to wiki.title , wiki %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+        </div>
+    </div>
+</section>
+<footer id="footer" class="midnight-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                &copy; 2015&nbsp;&nbsp;&nbsp;<%= link_to 'Cronus Team', root_path , :title => "Cronus Team @ AIS" %>.&nbsp;&nbsp;All Rights Reserved.
+            </div>
+            <div class="col-sm-6">
+                <ul class="pull-right">
+                    <li>
+                        <%= link_to "Home", root_path %>
+                    </li>
+                    <li>
+                        <%= link_to "Download", download_path %>
+                    </li>
+                    <li>
+                        <%= link_to 'Announcements', announcements_path, :class => 'navbar-link' %>
+                    </li>
+                    <li>
+                        <%= link_to 'Events', events_path, :class => 'navbar-link' %>                        
+                    </li>
+                    <li>
+                        <%= link_to 'Wikis', wikis_path, :class => 'navbar-link' %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer> 
+<style type="text/css">
+.item {
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background-color: #eee;
+  padding: 10px 10px 10px 30px;
+}
+</style>

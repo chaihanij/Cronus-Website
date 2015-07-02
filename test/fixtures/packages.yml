@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: 
+  operating_system_id: 
+  name: MyString
+  version: MyString
+  package: 
+  release_note: 
+  release_package: false
+  emergency_package: false
+  notwork_package: false
+  is_public: false
+
+two:
+  product_id: 
+  operating_system_id: 
+  name: MyString
+  version: MyString
+  package: 
+  release_note: 
+  release_package: false
+  emergency_package: false
+  notwork_package: false
+  is_public: false

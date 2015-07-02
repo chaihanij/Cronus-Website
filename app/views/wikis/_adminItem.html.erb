@@ -1,0 +1,50 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Parent ID&nbsp;/&nbsp;Title</th>
+                <th>Description</th>
+                <th colspan="3"></th>
+                <tr>
+        </thead>
+        <tbody>
+            <% @all_wikis.each_with_index do |wiki,index| %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= wiki.id %></td>
+                <td>
+                   <%= wiki.title %>
+                </td>
+                <td>
+                    <% if wiki.root? then %>
+                        root
+                    <% else %>
+                        <%= wiki.parent_id %>&nbsp;/&nbsp;<%= wiki.parent.title %>
+                    <% end %>
+                </td>
+                <td>
+                    <%= truncate(wiki.description, length: 100) { link_to "more", wiki } %>
+                </td>
+                <td>
+                    <%= link_to wiki, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to edit_wiki_path(wiki) do %>
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true">
+                    <% end %>
+                </td>
+                <td>
+                    <%= link_to wiki do %>
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

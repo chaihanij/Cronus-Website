@@ -1,0 +1,27 @@
+<%= form_for(@image, html: {class: 'form-horizontal'}) do |f| %>
+  <% if @image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+      <% @image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+      <label class="col-sm-2 control-label">Image</label>
+      <div class="col-sm-10" >
+        <%= f.file_field :imageFile ,id:"image" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-11 col-sm-offset-5">
+        <%= f.submit class:"btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+</script>

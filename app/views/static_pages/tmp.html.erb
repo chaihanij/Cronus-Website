@@ -1,0 +1,97 @@
+<section id="main-slider"  class="no-margin">
+    <div class="carousel slide" id="slider">
+        <ol class="carousel-indicators">
+         <% @annNew.each_with_index do |ann, index| %>
+         <% if index == 0 %>
+             <li data-target="#slider" data-slide-to="<%= index %>" class="active"></li>
+         <% else %>
+             <li data-target="#slider" data-slide-to="<%= index %>"></li>
+         <% end %>
+         <% end %>
+         </ol>
+         <div class="carousel-inner">
+             <% @annNew.each_with_index do |ann, index| %>
+             <% if index == 0 %>
+             <div class="item active" style="background-image: url(<%= ann.image.url(:cover) %>)">
+             <% else %>
+             <div class="item" style="background-image: url(<%= ann.image.url(:cover) %>)">
+             <% end %>
+                <div class="container">
+                    <div class="row slide-margin">
+                        <div class="col-sm-6">
+                            <div class="carousel-content">
+                                <h1 class="h1-color animation animated-item-1"><%= ann.title %></h1>
+                                <h2 class="animation animated-item-2"><%= ann.description %></h2>
+                                <%= link_to "Read More" , ann ,class: "btn-slide animation animated-item-3" %>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 hidden-xs animation animated-item-4">
+                            <div class="slider-img">
+                                <img src="images/slider/img3.png" class="img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div><!--/.item-->
+             <% end %>
+        </div><!--/.carousel-inner-->
+    </div><!--/.carousel-->
+    <a class="prev hidden-xs" href="#slider" data-slide="prev">
+        <i class="fa fa-chevron-left"></i>
+    </a>
+    <a class="next hidden-xs" href="#slider" data-slide="next">
+        <i class="fa fa-chevron-right"></i>
+    </a>
+</section>
+<section id="recent-works" >
+    <div class="container">
+       <div class="center wow fadeInDown">
+            <h2>Cronus Events</h2>
+            <p class="lead"></p>
+        </div>
+        <div class="row">
+            <% @events.each_with_index do| events, index |%>
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="recent-work-wrap">
+                        <%= image_tag(events.image.url(:medium), :class => "img-responsive") %>
+                    <div class="overlay">
+                        <div class="recent-work-inner">
+                            <h3><%= link_to events.title, events%> </h3>
+                            <p><%=  events.description %></p>
+                            <%= link_to "View", events, class: "preview"%> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        </div><!--/.row-->    
+    </div><!--/.container-->
+</section><!--/#feature-->
+
+
+
+===
+<h5>Release Package</h5>
+                    <p>&nbsp;&nbsp;&nbsp;<b><%= product.name %></b>'s most current release is <code><%= product.lastest_package_release.version %></code> </p>
+                    <p>
+                    <a href="<%= product.lastest_package_release.package %>" class="btn btn-primary" >Get the <%= product.lastest_package_release.name %> !</a>
+                 
+
+
+
+                    <p>&nbsp;&nbsp;&nbsp;<b><%= product.name %></b>'s most current release is <code><%= product.lastest_package_release.version %></code> </p>
+                    <p>
+                        <a href="<%= package.package %>" class="btn btn-primary" >Get the <%= product.lastest_package_release.name %> !</a>
+                        <% if  product.lastest_package_release.release_package %>
+                            <span class="label label-success">Release</span>
+                        <% end %>    
+                        <% if product.lastest_package_release.emergency_package %>
+                            <span class="label label-warning">Emergency</span>
+                        <% end %>
+                        <% if product.lastest_package_release.notwork_package %>
+                            <span class="label label-danger">Broken</span>
+                        <% end %>
+                    </p>
+                    <I>Size&nbsp;(<%= product.lastest_package_release.package_file_size %>)</I>
+                    <h5>Release Notes for <a href="<%= product.lastest_package_release.release_note %>"><%= product.lastest_package_release.name %></a></h4>
+        
