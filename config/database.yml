@@ -8,11 +8,16 @@ default: &default
 development:
   <<: *default
   database: CronusWebsite_development
+  username: cronuswebsite
+  password: cronuswebsite
 
-  
+
 test:
   <<: *default
   database: CronusWebsite_test
+  username: cronuswebsite
+  password: cronuswebsite
+
 
 production:
   <<: *default
