@@ -24,3 +24,4 @@ production:
   database: CronusWebsite_production
   username: cronuswebsite
   password: cronuswebsite
+  secret_key_base: cronuswebsite
