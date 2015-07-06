@@ -53,8 +53,7 @@ gem "autoprefixer-rails"
 # Use bootstrap
 gem 'bootstrap-sass', '~> 3.3.4'
 # Use font-awesome
-gem 'font-awesome-sass', '~> 4.3.0'
-
+gem "font-awesome-rails"
 # WYSWYG
 gem 'summernote-rails'
 
