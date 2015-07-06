@@ -774,7 +774,7 @@ input.search-form:hover {
   margin-bottom: 25px;
 }
 
-./*panel-default{
+/*.panel-default{
   border-color: transparent;
 }
 
@@ -1890,7 +1890,7 @@ ul.social_icons li  a i{
 **************************/
 
 .gmap-area {
-  background-image: url("/images/map.jpg");
+  background-image: url(asset-path("images/map.jpg"));
   background-position: 0 0;
   background-repeat: no-repeat;
   background-size: cover;
