@@ -8,5 +8,3 @@ CronusWebsite
   > feature Events
   > feature Contact
 
-
-
