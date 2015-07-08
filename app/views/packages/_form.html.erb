@@ -38,7 +38,7 @@
   <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Package file</label>
       <div class="col-sm-8" >
-        <%= f.file_field :package ,id: "package"%>
+        <%= f.file_field :package ,id: "package" %>
          <i>The maximum file size is 100 megabytes.</i>
       </div>
   </div>
@@ -51,7 +51,7 @@
   <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Build date</label>
       <div class="col-sm-8" >
-        <%= f.date_field :build_date ,id: "build_date", class: 'form-control', required: "required" %>
+        <%= f.text_field :build_date , id: "build_date", class: 'form-control', required: "required", placeholder: "YYYY-MM-DD" %>
       </div>
   </div>
   <div class="form-group has-warning">
@@ -64,7 +64,8 @@
   <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Release date</label>
       <div class="col-sm-8" >
-        <%= f.date_field :release_date ,id: "release_date", class: 'form-control', required: "required" %>
+        <%= f.text_field :release_date ,id: "release_date", class: 'form-control', required: "required",placeholder: "YYYY-MM-DD"  %>
+
       </div>
   </div>
   <div class="form-group has-warning">
@@ -73,7 +74,7 @@
           <%= f.text_area :description, id:"description", class: "form-control"%>
         </div>
   </div> 
-  <div class="form-group has-warning">
+  <div class="form-group">
     <div class="col-sm-3 col-sm-offset-2">
       <div class="checkbox">
         <label>

@@ -20,4 +20,14 @@ class Package < ActiveRecord::Base
       all
     end
   end
+
+  #Virtual attribute to have paperclip generate the md5
+  # def package_fingerprint
+  #   self.hash_value
+  # end 
+
+  # def package_fingerprint=(md5Hash)
+  #   self.hash_value=md5Hash
+  # end
+
 end
