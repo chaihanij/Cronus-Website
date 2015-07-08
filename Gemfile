@@ -54,6 +54,7 @@ gem "autoprefixer-rails"
 gem 'bootstrap-sass', '~> 3.3.4'
 # Use font-awesome
 gem "font-awesome-rails"
+gem 'simple_form'
 # WYSWYG
 gem 'summernote-rails'
 

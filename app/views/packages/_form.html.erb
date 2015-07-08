@@ -11,69 +11,69 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group has-warning">
     <%= f.label :name, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
       <%= f.text_field :name, id: "name", autocomplete: "off", class: "form-control",required: "required" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
     <%= f.label :version, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
       <%= f.text_field :version, id: "version", autocomplete: "off", class: "form-control",required: "required" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Prodcut</label>
       <div class="col-sm-8">
         <%= f.select(:product_id, Product.is_public.collect {|mt| [ mt.name, mt.id ] }, {:include_blank => 'Please select product'}, class: 'form-control',required: "required") %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">OS</label>
       <div class="col-sm-8">
         <%= f.select(:operating_system_id, OperatingSystem.is_public.collect {|mt| [ mt.name + " " + mt.version, mt.id ] }, {:include_blank => 'Please select operating system'}, class: 'form-control',required: "required") %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Package file</label>
       <div class="col-sm-8" >
-        <%= f.file_field :package ,id: "package", required: "required"%>
+        <%= f.file_field :package ,id: "package"%>
          <i>The maximum file size is 100 megabytes.</i>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Checksum</label>
       <div class="col-sm-8" >
         <%= f.text_field :checksum ,id: "checksum", class: 'form-control', required: "required"%>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Build date</label>
       <div class="col-sm-8" >
         <%= f.date_field :build_date ,id: "build_date", class: 'form-control', required: "required" %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Release note file</label>
       <div class="col-sm-8" >
-        <%= f.file_field :release_note ,id: "release_note", required: "required" %>
+        <%= f.file_field :release_note ,id: "release_note" %>
          <i>The maximum file size is 100 megabytes.</i>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Release date</label>
       <div class="col-sm-8" >
         <%= f.date_field :release_date ,id: "release_date", class: 'form-control', required: "required" %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
         <label class="col-sm-2 control-label">Description</label>
         <div class="col-sm-8">
           <%= f.text_area :description, id:"description", class: "form-control"%>
         </div>
   </div> 
-  <div class="form-group">
+  <div class="form-group has-warning">
     <div class="col-sm-3 col-sm-offset-2">
       <div class="checkbox">
         <label>
