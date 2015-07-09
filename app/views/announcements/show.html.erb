@@ -26,9 +26,6 @@
             </div>          
             <div class="col-md-4">
                 <div class="widget search">
-                    <!-- <form role="form">
-                        <input type="text" class="form-control search_box" autocomplete="off" placeholder="Search Here">
-                    </form> -->
                     <% if can? :manage , edit_announcement_path %>
                         <%= link_to 'Edit', edit_announcement_path(@announcement),class: "btn btn-primary btn-block" %>
                     <% end %>

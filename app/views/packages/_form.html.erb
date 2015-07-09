@@ -1,73 +1,76 @@
 <%= form_for(@package, html: {class: 'form-horizontal'}) do |f| %>
-  <% if @package.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+   <div class="form-group">
+        <div class="col-sm-2"></div>
+        <% if @package.errors.any? %>
+        <div id="error_explanation" class="col-sm-8 alert alert-danger" role="alert" >
+          <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>   
 
-      <ul>
-      <% @package.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
+          <ul>
+          <% @package.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+        <% end %>
+  </div>
+  <div class="form-group has-warning">
     <%= f.label :name, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
       <%= f.text_field :name, id: "name", autocomplete: "off", class: "form-control",required: "required" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
     <%= f.label :version, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
       <%= f.text_field :version, id: "version", autocomplete: "off", class: "form-control",required: "required" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Prodcut</label>
       <div class="col-sm-8">
         <%= f.select(:product_id, Product.is_public.collect {|mt| [ mt.name, mt.id ] }, {:include_blank => 'Please select product'}, class: 'form-control',required: "required") %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">OS</label>
       <div class="col-sm-8">
         <%= f.select(:operating_system_id, OperatingSystem.is_public.collect {|mt| [ mt.name + " " + mt.version, mt.id ] }, {:include_blank => 'Please select operating system'}, class: 'form-control',required: "required") %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Package file</label>
       <div class="col-sm-8" >
-        <%= f.file_field :package ,id: "package", required: "required"%>
+        <%= f.file_field :package ,id: "package" %>
          <i>The maximum file size is 100 megabytes.</i>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Checksum</label>
       <div class="col-sm-8" >
         <%= f.text_field :checksum ,id: "checksum", class: 'form-control', required: "required"%>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Build date</label>
       <div class="col-sm-8" >
-        <%= f.date_field :build_date ,id: "build_date", class: 'form-control', required: "required" %>
+        <%= f.text_field :build_date , id: "build_date", class: 'form-control', required: "required", placeholder: "YYYY-MM-DD" %>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Release note file</label>
       <div class="col-sm-8" >
-        <%= f.file_field :release_note ,id: "release_note", required: "required" %>
+        <%= f.file_field :release_note ,id: "release_note" %>
          <i>The maximum file size is 100 megabytes.</i>
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
       <label class="col-sm-2 control-label">Release date</label>
       <div class="col-sm-8" >
-        <%= f.date_field :release_date ,id: "release_date", class: 'form-control', required: "required" %>
+        <%= f.text_field :release_date ,id: "release_date", class: 'form-control', required: "required",placeholder: "YYYY-MM-DD"  %>
+
       </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
         <label class="col-sm-2 control-label">Description</label>
         <div class="col-sm-8">
           <%= f.text_area :description, id:"description", class: "form-control"%>
@@ -106,12 +109,15 @@
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-12 col-sm-offset-2">
+    <div class="col-sm-10 col-sm-offset-2">
         <%= f.submit class:"btn btn-primary btn-lg" %>
     </div>
   </div>  
 <% end %>
 <script type="text/javascript">
   $('#description').summernote({height:300});
+  $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+  $('#build_date').datepicker();
+  $('#release_date').datepicker();
 </script>
 
