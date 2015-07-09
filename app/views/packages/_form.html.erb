@@ -1,16 +1,18 @@
 <%= form_for(@package, html: {class: 'form-horizontal'}) do |f| %>
-  <% if @package.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>
+   <div class="form-group">
+        <div class="col-sm-2"></div>
+        <% if @package.errors.any? %>
+        <div id="error_explanation" class="col-sm-8 alert alert-danger" role="alert" >
+          <h2><%= pluralize(@package.errors.count, "error") %> prohibited this package from being saved:</h2>   
 
-      <ul>
-      <% @package.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+          <ul>
+          <% @package.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+        <% end %>
+  </div>
   <div class="form-group has-warning">
     <%= f.label :name, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
@@ -114,5 +116,8 @@
 <% end %>
 <script type="text/javascript">
   $('#description').summernote({height:300});
+  $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+  $('#build_date').datepicker();
+  $('#release_date').datepicker();
 </script>
 
