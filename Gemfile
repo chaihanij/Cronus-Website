@@ -77,3 +77,6 @@ gem 'kaminari-bootstrap','~> 3.0.1'
 
 # Pretty URLs
 gem 'friendly_id'
+
+# table search and sort
+gem "ransack"

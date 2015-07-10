@@ -1,32 +1,73 @@
 <section id="blog" class="container">
     <div class="center">
-        <h2>Announcements</h2>
-        <p class="lead">Announcement in system platform development team.</p>
+        <h2>Manage announcements</h2>
+        <p class="lead">Manage announcement in system platform development team.</p>
     </div>
     <div class="blog">
         <div class="row">
-            <div class="col-md-8">
-                <div id="role_admin"><%= render 'adminItem' %></div>
-                <div id="role_user" ><%= render 'userItem' %></div>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped pretty">
+                            <thead>
+                                <tr>
+                                    <th><a>No.</a></th>
+                                    <th><%= sortable "id" %></th>
+                                    <th><%= sortable "title" %></th>
+                                    <th><%= sortable "created_at", "Time create" %></th>
+                                    <th><%= sortable "updated_at", "Time update" %></th>
+                                    <th><%= sortable "is_public",  "Public" %></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @announcements.each_with_index do |announcement,index| %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= announcement.id %></td>
+                                    <td><%= announcement.title %></td>
+                                    <td><%= announcement.created_at.to_formatted_s(:db)  %></td>
+                                    <td><%= announcement.updated_at.to_formatted_s(:db)  %></td>
+                                    <td>
+                                    <% if announcement.is_public then %>
+                                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    <% else %>
+                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <% end %>
+                                    </td>
+                                    <td>
+                                        <%= link_to announcement, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                        <% end %>   
+                                
+                                        <%= link_to edit_announcement_path(announcement), class: "btn btn-warning btn-xs" do %>
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                        <% end %>   
+                               
+                                        <%= link_to announcement, class: "btn btn-success btn-xs"  do %>
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                        <% end %>
+                                    </td>
+                                </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                  <%= paginate @announcements,:page => "admin_page" %>
+                </div>              
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="widget search">
                     <%= form_tag announcements_path, :method => 'get' do %>
                         <div class="form-group">
-                            <!-- <label class="sr-only" for="search">Search</label> -->
-                            <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>
-                            
+                            <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>       
                         </div>
-                        <%#<%= submit_tag "Search", :name => nil, class: "btn btn-default" %>
                     <% end %>
                     <form role="form">
                         <% if can? :manage, new_announcement_path %>
-                            <div class="form-group">
-                                <select id="view" class="form-control">
-                                    <option id="1" value="0">user view</option>
-                                    <option id="2" value="1">admin view</option>
-                                </select>
-                            </div>
                             <div class="form-group">
                               <%= link_to "New Announcement", new_announcement_path, class: "btn btn-primary btn-block" %>
                             </div>
@@ -37,16 +78,3 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-    $('#role_admin').hide();
-    $('#view').change(function() {
-        var x = $("#view").val();
-        if (x == 0) {
-            $("#role_user").show();
-            $('#role_admin').hide();
-        } else if (x ==1 ) {
-            $("#role_admin").show();
-            $('#role_user').hide();
-        };
-    });
-</script>

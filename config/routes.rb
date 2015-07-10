@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   get '/download' , to:'static_pages#download'
   get '/contact-us' ,  to:'static_pages#contact'
+  get '/static_announcement' ,  to:'static_pages#announcement'
+  get '/static_event' ,  to:'static_pages#event'
+  get '/static_wiki' ,  to:'static_pages#wiki'
 
   # -------------
 

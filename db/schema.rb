@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707092543) do
+ActiveRecord::Schema.define(version: 20150710081729) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150707092543) do
     t.string   "email",              limit: 255
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.boolean  "is_public",          limit: 1
   end
 
   create_table "contacts", force: :cascade do |t|

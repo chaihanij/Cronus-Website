@@ -1,5 +1,5 @@
 <% @wikis.each do |wiki| %>
-	<div class="item" >
+	<div class="item-wiki" >
 		<h4><%= wiki.title %></h4>
 		<h3><%= wiki.updated_at.strftime("%B %d, %Y") %></h3>
 		<%= truncate(wiki.description, length: 100) { link_to "more", wiki } %></p>
