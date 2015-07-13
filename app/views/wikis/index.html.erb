@@ -6,7 +6,14 @@
         </div>        
         <div class="row">
             <div class="col-md-8">
-            <%= @wikis.to_json %>
+                <div> 
+                    <% @wikis.each do |wiki| %>
+                    <%= list_by_root_a(wiki).html_safe %>
+                    <% end  %>
+                </div>
+                <div class="text-center">
+                    <%= paginate @wikis %>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="widget search">
