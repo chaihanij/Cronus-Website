@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710081729) do
+ActiveRecord::Schema.define(version: 20150713050205) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150710081729) do
     t.datetime "updated_at",                       null: false
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "is_public",          limit: 1
   end
 
   create_table "images", force: :cascade do |t|
@@ -156,6 +157,7 @@ ActiveRecord::Schema.define(version: 20150710081729) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.string   "description",    limit: 255
+    t.boolean  "is_public",      limit: 1
   end
 
   add_index "wikis", ["lft"], name: "index_wikis_on_lft", using: :btree

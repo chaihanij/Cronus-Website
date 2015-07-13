@@ -4,8 +4,7 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.json
   def index
-   @all_wikis = Wiki.searchAll(params[:search_all]).order(:updated_at => :desc).page(params[:page]).per(20)
-   @wikis = Wiki.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
+    @wikis =  Wiki.roots.page(params[:page]).per(20)  
   end
 
   # GET /wikis/1
@@ -71,6 +70,6 @@ class WikisController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wiki_params
-      params.require(:wiki).permit(:title, :description, :body, :sidebody, :parent_id, :lft, :rgt, :depth, :children_count)
+      params.require(:wiki).permit(:title, :description, :body, :sidebody, :parent_id, :lft, :rgt, :depth, :children_count, :is_public)
     end
 end

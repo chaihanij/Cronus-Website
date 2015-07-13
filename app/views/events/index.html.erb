@@ -1,15 +1,62 @@
 <section id="blog" class="container">
     <div class="center">
-        <h2>Events</h2>
-        <p class="lead">Event in system platform development team.</p>
+        <h2>Manage event</h2>
+        <p class="lead">Manage event in system platform development team.</p>
     </div>
     <div class="blog">
         <div class="row">
-            <div class="col-md-8">
-                <div id="role_admin"><%= render 'adminItem' %></div>
-                <div id="role_user" ><%= render 'userItem' %></div>
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped pretty">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th><%= sortable "title" %></th>
+                                    <th><%= sortable "created_at", "Time create" %></th>
+                                    <th><%= sortable "updated_at", "Time update" %></th>
+                                    <th><%= sortable "is_public",  "Public" %></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @events.each_with_index do |event,index| %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= event.title %></td>
+                                    <td><%= event.created_at.to_formatted_s(:db)  %></td>
+                                    <td><%= event.updated_at.to_formatted_s(:db)  %></td>
+                                    <td align="center">
+                                        <% if event.is_public then %>
+                                          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        <% else %>
+                                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        <% end %>
+                                    </td>
+                                    <td align="center">
+                                        <%= link_to event, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                        <% end %>   
+                                
+                                        <%= link_to edit_event_path(event), class: "btn btn-warning btn-xs" do %>
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                        <% end %>   
+                               
+                                        <%= link_to event, class: "btn btn-success btn-xs"  do %>
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                        <% end %>
+                                    </td>
+                                </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <%= paginate @events  %>
+                </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="widget search">
                     <%= form_tag events_path, :method => 'get' do %>
                         <div class="form-group">
@@ -18,12 +65,6 @@
                     <% end %>
                     <form role="form">
                         <% if can? :manage, new_event_path %>
-                            <div class="form-group">
-                                <select id="view" class="form-control">
-                                    <option id="1" value="0">user view</option>
-                                    <option id="2" value="1">admin view</option>
-                                </select>
-                            </div>
                             <div class="form-group">
                               <%= link_to "New Event", new_event_path, class: "btn btn-primary btn-block" %>
                             </div>
@@ -34,16 +75,3 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-    $('#role_admin').hide();
-    $('#view').change(function() {
-        var x = $("#view").val();
-        if (x == 0) {
-            $("#role_user").show();
-            $('#role_admin').hide();
-        } else if (x ==1 ) {
-            $("#role_admin").show();
-            $('#role_user').hide();
-        };
-    });
-</script>

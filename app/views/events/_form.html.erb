@@ -48,10 +48,18 @@
         <div class="col-sm-9">
           <%= f.text_area :body, id:"body", oninput:"this.editor.update()",:data => {:provide => "markdown"}, :row => "20" %>
         </div>
-    </div>  
+    </div>
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :is_public %> Public
+        </label>
+      </div>
+    </div>
+    </div>
     <div class="form-group">
       <div class="col-sm-10 col-sm-offset-2">
-          <%= f.submit class:"btn btn-primary",required: "required" %>
+          <%= f.submit class:"btn btn-primary" %>
       </div>
     </div>
 <% end %>

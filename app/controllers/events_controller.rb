@@ -5,8 +5,8 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events_admin = Event.search(params[:search]).order(sort_column + " " + sort_direction).order(:updated_at => :desc).page(params[:admin_page]).per(10)
-    @events = Event.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
+    authorize! :manage, @event , :message => "Access denied."
+    @events = Event.search(params[:search]).order(sort_column + " " + sort_direction).order(:updated_at => :desc).page(params[:page]).per(20)
   end
 
   # GET /events/1
@@ -76,7 +76,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :body, :image, :email,:start_date,:end_date)
+      params.require(:event).permit(:title, :description, :body, :image, :email, :start_date, :end_date, :is_public)
     end
     def sort_column
       Event.column_names.include?(params[:sort]) ? params[:sort] : "title"
