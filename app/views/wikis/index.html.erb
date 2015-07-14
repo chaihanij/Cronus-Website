@@ -6,11 +6,10 @@
         </div>        
         <div class="row">
             <div class="col-md-8">
-                <div> 
+                     <%= nested_attributes(@wikis).html_safe %>
                     <% @wikis.each do |wiki| %>
-                    <%= list_by_root_a(wiki).html_safe %>
+                       
                     <% end  %>
-                </div>
                 <div class="text-center">
                     <%= paginate @wikis %>
                 </div>
@@ -19,8 +18,8 @@
                 <div class="widget search">
                     <%= form_tag wikis_path, :method => 'get' do %>
                         <div class="form-group">
-                            <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
-                         </div>
+                        <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+                        </div>
                     <% end %>
                     <form role="form">
                         <% if can? :manage, new_product_path %>

@@ -4,8 +4,49 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.json
   def index
+    get_data(Wiki.roots.page(params[:page]).per(10))
     @wikis =  Wiki.roots.page(params[:page]).per(10)
   end
+
+  def get_data(wikis)
+    logger.debug "++++++++++++++++++++++++++++++++++++"
+    # objcet = new Tree.new()
+    for wiki in wikis do
+
+      recursive_data(wiki,0)
+    end 
+  end 
+
+  def recursive_data(wiki, level)
+      str = "-" * level
+      # value = new Tree.new(object, wiki.title)
+      # object.children[object.children.size] = value
+      logger.debug "#{str} recursive_data  #{wiki.title}, #{level}"
+      level = level + 1
+      i=0
+      for x in wiki.children
+        str = "-" * level
+        recursive_data(x, level)
+        i = i + 1
+      end 
+  end
+
+  # class Tree
+  #   attr_accessor :parant, :value, 
+  #   def initialize(p,v)
+  #     @parant = p
+  #     @value = v
+  #     @children = []
+  #   end
+  # end
+
+  # def dup_str(char, level)
+  #   output
+  #   for x in 0..level
+  #     output += char
+  #   end
+  #   return output
+  # end
 
   # GET /wikis/1
   # GET /wikis/1.json
