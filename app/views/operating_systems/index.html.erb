@@ -6,49 +6,51 @@
     <div class="blog">
         <div class="row">
             <div class="col-md-8">
-              <div class="table-responsive">
-                <table class="table">
-                   <thead>
-                     <tr>
-                       <th>No.</th>
-                       <th align="center">Name</th>
-                       <th align="center">Version</th>
-                       <th align="center">Description</th>
-                       <th align="center">Is public</th>
-                       <th align="center"></th>
-                     </tr>
-                   </thead>                 
-                   <tbody>
-                     <% @operating_systems.each_with_index do |operating_system,index| %>
-                       <tr>
-                         <td><%= index+1 %></td>
-                         <td><%= operating_system.name %></td>
-                         <td><%= operating_system.version %></td>
-                         <td><%= truncate(operating_system.description , length: 80) { link_to "more", operating_system } %></td>
-                         <td>
-                          <% if operating_system.is_public then %>
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                          <% else %>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                          <% end %>
-                        </td>
-                         <td align="center">
-                            <%= link_to operating_system, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            <% end %>
-                        
-                            <%= link_to edit_operating_system_path(operating_system) do %>
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true">
-                            <% end %>
-                      
-                            <%= link_to operating_system do %>
-                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                            <% end %>
-                        </td>
-                       </tr>
-                     <% end %>
-                   </tbody>
-                 </table>
+               <div class="panel panel-default">
+                  <div class="table-responsive">
+                    <table class="table pretty">
+                       <thead>
+                         <tr>
+                           <th>No.</th>
+                           <th>Name</th>
+                           <th>Version</th>
+
+                           <th>Public</th>
+                           <th></th>
+                         </tr>
+                       </thead>                 
+                       <tbody>
+                         <% @operating_systems.each_with_index do |operating_system,index| %>
+                           <tr>
+                             <td><%= index+1 %></td>
+                             <td><%= operating_system.name %></td>
+                             <td><%= operating_system.version %></td>
+                             <td edit_operating_system_path(operating_system)>
+                              <% if operating_system.is_public then %>
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                              <% else %>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                              <% end %>
+                            </td>
+                             <td align="center">
+                                <%= link_to operating_system, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                        <% end %>   
+                                
+                                        <%= link_to edit_operating_system_path(operating_system), class: "btn btn-warning btn-xs" do %>
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                        <% end %>   
+                               
+                                        <%= link_to operating_system, class: "btn btn-success btn-xs"  do %>
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                        <% end %>
+        
+                            </td>
+                           </tr>
+                         <% end %>
+                       </tbody>
+                     </table>
+                  </div>
               </div>
             </div>
             <div class="col-md-4">

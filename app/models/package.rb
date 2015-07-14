@@ -1,4 +1,7 @@
 class Package < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   belongs_to :product
   belongs_to :operating_system
   
@@ -12,6 +15,7 @@ class Package < ActiveRecord::Base
   # validates_attachment_presence :documnet
   validates_attachment_size :release_note, :less_than => 100.megabytes
 
+  scope :is_public, -> { where(:public => 1) }
   # scope :current_package, ->(product_id){ where(:product_id => product_id).where(:release_package => true).order(:created_at => :desc).limit(1).first } 
   def self.search(search)
     if search

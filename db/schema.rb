@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713050205) do
+ActiveRecord::Schema.define(version: 20150714084141) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -107,10 +107,12 @@ ActiveRecord::Schema.define(version: 20150713050205) do
     t.date     "build_date"
     t.text     "description",               limit: 65535
     t.string   "package_fingerprint",       limit: 255
+    t.string   "slug",                      limit: 255
   end
 
   add_index "packages", ["operating_system_id"], name: "index_packages_on_operating_system_id", using: :btree
   add_index "packages", ["product_id"], name: "index_packages_on_product_id", using: :btree
+  add_index "packages", ["slug"], name: "index_packages_on_slug", unique: true, using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",        limit: 255

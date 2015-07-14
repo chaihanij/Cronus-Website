@@ -6,7 +6,7 @@ class PackagesController < ApplicationController
   # GET /packages.json
   def index
     authorize! :manage, @packages , :message => "Access denied."
-    @packages = Package.order(sort_column + " " + sort_direction).order(:product_id => :asc).search(params[:search]).page(params[:page]).per(10)
+    @packages = Package.order(sort_column + " " + sort_direction).order(:product_id => :asc).search(params[:search]).page(params[:page]).per(50)
   end
 
   # GET /packages/1
@@ -71,7 +71,7 @@ class PackagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_package
-      @package = Package.find(params[:id])
+      @package = Package.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
