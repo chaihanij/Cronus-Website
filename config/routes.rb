@@ -15,9 +15,8 @@ Rails.application.routes.draw do
   resources :announcements
   resources :documents
   resources :wikis
-  resources :images 
+  resources :images
   resources :users
-
   get '/download' , to:'static_pages#download'
   get '/contact-us' ,  to:'static_pages#contact'
   get '/static_announcement' ,  to:'static_pages#announcement'

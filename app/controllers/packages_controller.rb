@@ -76,7 +76,7 @@ class PackagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def package_params
-      params.require(:package).permit(:product_id, :operating_system_id, :name, :version, :package, :release_note, :release_package, :emergency_package, :notwork_package, :is_public, :checksum, :release_date, :build_date, :description)
+      params.require(:package).permit(:product_id, :operating_system_id, :name, :version, :package, :release_note, :release_package, :emergency_package, :notwork_package, :is_public, :checksum, :release_date, :build_date, :description, :latest)
     end
 
     def sort_column

@@ -5,16 +5,11 @@
             <p class="lead">Manage wiki in system platform development team.</p>
         </div>        
         <div class="row">
-            <div class="col-md-8">
-                     <%= nested_attributes(@wikis).html_safe %>
-                    <% @wikis.each do |wiki| %>
-                       
-                    <% end  %>
-                <div class="text-center">
-                    <%= paginate @wikis %>
-                </div>
+            <div class="col-md-9">
+                <%#= render 'adminItem' %> 
+                <%= @wikis %>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="widget search">
                     <%= form_tag wikis_path, :method => 'get' do %>
                         <div class="form-group">
