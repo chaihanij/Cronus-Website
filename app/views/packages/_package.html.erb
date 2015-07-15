@@ -24,9 +24,16 @@
                       <% end %>
                     </td>
                     <td><%= package.name %></td>
-                    <td><%= package.build_date.to_formatted_s(:db)  %></td>
-                    <td><%= package.release_date.to_formatted_s(:db)  %></td>
-                    
+                    <td>
+                      <% if (package.build_date != nil) %>
+                        <%= package.build_date.to_formatted_s(:db)  %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if (package.release_date != nil) %>
+                        <%= package.release_date.to_formatted_s(:db)  %>
+                      <% end %>
+                    </td>
                     <td align="center">
                       <% if package.is_public then %>
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
