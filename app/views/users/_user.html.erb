@@ -1,35 +1,39 @@
-<table class="table table-hover">
-    <thead>
-         <tr>
-             <th>No.</th>
-             <th><%= sortable "email" %></th>
-             <th><%= sortable "role" %></th>
-             <th colspan="2"></th>
-         </tr>
-    </thead>
-    <tbody>
-       <% @users.each_with_index do |user,index| %>
-         <tr>
-           <td valign="middle" > 
-               <%= index+1 %>
-           </td>
-           <td valign="middle">
-               <%= link_to user.email , user %>
-           </td>
-           <td>
-            <% if  !(user == current_user) then %>
-              <%= form_for(user) do |f| %>
-               <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-               <%= f.submit 'Change Role', :class => 'btn btn-primary' %>
-              <% end %>
-            <% else %>
-              <%= label(:role, user.role) %>
-            <% end %>
-           </td>
-           <td>
-             <%= button_to("Delete user", user, :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-primary') unless user == current_user %>
-           </td>
-         </tr>
-       <% end %>
-    </tbody>
-</table>
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-striped pretty">
+            <thead>
+                 <tr>
+                     <th>No.</th>
+                     <th><%= sortable "email" %></th>
+                     <th><%= sortable "role" %></th>
+                     <th colspan="2"></th>
+                 </tr>
+            </thead>
+            <tbody>
+               <% @users.each_with_index do |user,index| %>
+                 <tr>
+                   <td valign="middle" > 
+                       <%= index+1 %>
+                   </td>
+                   <td valign="middle">
+                       <%= link_to user.email , user %>
+                   </td>
+                   <td>
+                    <% if  !(user == current_user) then %>
+                      <%= form_for(user) do |f| %>
+                       <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+                       <%= f.submit 'Change Role', :class => 'btn btn-primary btn-xs' %>
+                      <% end %>
+                    <% else %>
+                      <%= label(:role, user.role) %>
+                    <% end %>
+                   </td>
+                   <td>
+                     <%= button_to("Delete user", user, :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-primary btn-xs') unless user == current_user %>
+                   </td>
+                 </tr>
+               <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

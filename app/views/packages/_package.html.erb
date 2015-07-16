@@ -1,83 +1,64 @@
-<div class="table-responsive">
-    <table  class="table table-striped table-condensed table-hover">
-        <thead>
-            <tr>
-              <th align="center">No.</th>
-              <th align="center"><%= sortable "product" %></th>
-              <th align="center"><%= sortable "operating_system" %></th>
-              <th align="center"><%= sortable "name" %></th>
-              <th align="center"><%= sortable "version" %></th>
-<!--               <th align="center">Release</th>
-              <th align="center">Emergency</th>
-              <th align="center">Broken</th> -->
-              <th align="center"><%= sortable "is_public" %></th>
-              <th align="center"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @packages.each_with_index do |package,index| %>
-            <tr>
-                <td align="center"><%= index+1 %></td>
-                <td>
-                  <% if (package.product != nil) then %>
-                    <%= package.product.name %> 
-                  <% else %>
-                     Othen product
-                  <% end %>
-                </td>
-                <td>
-                  <% if (package.operating_system != nil) then %>
-                    <%= package.operating_system.name %>&nbsp;&nbsp;&nbsp;<%= package.operating_system.version %> 
-                  <% else %>
-                     Othen OS
-                  <% end %>
-                </td>
-                <td><%= package.name %></td>
-                <td><%= package.version %></td>
-<!--                 <td align="center">
-                  <% if package.release_package then %>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <% end %>
-                <td align="center">
-                  <% if package.emergency_package then %>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <% end %>
-                </td>
-                <td align="center">
-                  <% if package.notwork_package then %>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <% end %>
-                </td>-->
-                <td align="center">
-                  <% if package.is_public then %>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <% end %>
-                </td>
-                <td align="center">
-                    <%= link_to package, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    <% end %>
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table  class="table table-striped pretty">
+            <thead>
+                <tr>
+                  <th>No.</th>
+                  <th><%= sortable "product" %></th>
+                  <th><%= sortable "name" %></th>
+                  <th><%= sortable "build_date", "Build date" %></th>
+                  <th><%= sortable "release_date", "Release date" %></th>
+                  <th><%= sortable "is_public" , "Public" %></th>
+                  <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @packages.each_with_index do |package,index| %>
+                <tr>
+                    <td align="center"><%= index+1 %></td>
+                    <td>
+                      <% if (package.product != nil) then %>
+                        <%= package.product.name %> 
+                      <% else %>
+                         Othen product
+                      <% end %>
+                    </td>
+                    <td><%= package.name %></td>
+                    <td>
+                      <% if (package.build_date != nil) %>
+                        <%= package.build_date.to_formatted_s(:db)  %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <% if (package.release_date != nil) %>
+                        <%= package.release_date.to_formatted_s(:db)  %>
+                      <% end %>
+                    </td>
+                    <td align="center">
+                      <% if package.is_public then %>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <% else %>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <% end %>
+                    </td>
+                    <td align="center">
+                        <%= link_to package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                        <% end %>   
                 
-                    <%= link_to edit_package_path(package) do %>
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true">
-                    <% end %>
-              
-                    <%= link_to package do %>
-                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                    <% end %>
-                </td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
+                        <%= link_to edit_package_path(package), class: "btn btn-warning btn-xs" do %>
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                        <% end %>   
+               
+                        <%= link_to package, class: "btn btn-success btn-xs"  do %>
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                        <% end %>   
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="text-center">
   <%= paginate @packages %>

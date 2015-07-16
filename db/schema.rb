@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707092543) do
+ActiveRecord::Schema.define(version: 20150715034942) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150707092543) do
     t.string   "email",              limit: 255
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.boolean  "is_public",          limit: 1
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150707092543) do
     t.datetime "updated_at",                       null: false
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "is_public",          limit: 1
   end
 
   create_table "images", force: :cascade do |t|
@@ -105,10 +107,13 @@ ActiveRecord::Schema.define(version: 20150707092543) do
     t.date     "build_date"
     t.text     "description",               limit: 65535
     t.string   "package_fingerprint",       limit: 255
+    t.string   "slug",                      limit: 255
+    t.boolean  "latest",                    limit: 1
   end
 
   add_index "packages", ["operating_system_id"], name: "index_packages_on_operating_system_id", using: :btree
   add_index "packages", ["product_id"], name: "index_packages_on_product_id", using: :btree
+  add_index "packages", ["slug"], name: "index_packages_on_slug", unique: true, using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -155,6 +160,7 @@ ActiveRecord::Schema.define(version: 20150707092543) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.string   "description",    limit: 255
+    t.boolean  "is_public",      limit: 1
   end
 
   add_index "wikis", ["lft"], name: "index_wikis_on_lft", using: :btree

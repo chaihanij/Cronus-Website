@@ -1,37 +1,49 @@
 <%= form_for(@wiki, html: {class: 'form-horizontal'}) do |f| %>
-  <% if @wiki.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@wiki.errors.count, "error") %> prohibited this wiki from being saved:</h2>
-
-      <ul>
-      <% @wiki.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="form-group">
+    <div class="col-sm-2" ></div>
+    <% if @wiki.errors.any? %>
+      <div id="error_explanation" class="col-sm-8 alert alert-danger" role="alert" >
+        <h2><%= pluralize(@wiki.errors.count, "error") %> prohibited this wiki from being saved:</h2> 
+
+        <ul>
+        <% @wiki.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group has-warning">
     <%= f.label :title, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
       <%= f.text_field :title, id: "title", autocomplete: "off", class: "form-control",required: "required" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
     <%= f.label :parent_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
         <%= f.select :parent_id, nested_set_options(Wiki, @wiki) {|i| "#{'-' * i.level} #{i.title }" }.unshift(["No Parent", nil]), class: 'form-control' %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
     <%= f.label :description, class: "col-sm-2 control-label" %>
     <div class="col-sm-8">
-      <%= f.text_area :description, id: "description", autocomplete: "off", class: "form-control",required: "required" %>
+      <%= f.text_area :description, id: "description", autocomplete: "off", class: "form-control" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group has-warning">
     <label class="col-sm-2 control-label" >Body</label>
     <div class="col-sm-8">
           <%= f.text_area :body, id: "body" %>  
+    </div>
+  </div>
+  <div class="form-group has-warning">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :is_public %> Public
+        </label>
+      </div>
     </div>
   </div>
   <div class="form-group">

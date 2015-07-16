@@ -1,17 +1,19 @@
 class ProductsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products_all = Product.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(10)
-    @products = Product.is_public.search(params[:search])
+    authorize! :manage, @packages , :message => "Access denied."
+    @products = Product.search(params[:search]).order(sort_column + " " + sort_direction).order(:updated_at => :desc).page(params[:page]).per(20)
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-    @package_in_product = @product.packages.where(:is_public => 1)
+    @package_in_product = @product.packages.where(:is_public => 1).order(:release_date => :desc)
     @lastest_package_release = @product.lastest_package_release
   end
 
@@ -78,5 +80,13 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:name, :description, :public)
+    end
+
+    def sort_column
+      Product.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+  
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

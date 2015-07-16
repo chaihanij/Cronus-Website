@@ -7,7 +7,6 @@
    		<% @products.each do |product| %>
 		<div class="row item" >
 			<h4><%= link_to product.name , product %></h4>
-		<!-- <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;<%= product.description[0..100] %>...more</p> -->
 			<div class="row">
 				<div class="col-md-12">
                     <h5>Release Package</h5>
@@ -21,7 +20,7 @@
                     </p>
                     <% if (product.lastest_package_release != nil) %>
                     <p>
-                    <a href="<%= product.lastest_package_release.package %>" class="btn btn-primary" >Get the <%= product.lastest_package_release.name %> !</a>
+                    <a href="<%= product.lastest_package_release.package %>" class="btn btn-primary" >Get the latest package</a>
                     <% if product.lastest_package_release.release_package %>
                         <span class="label label-success">Release</span>&nbsp;
                     <% end %>

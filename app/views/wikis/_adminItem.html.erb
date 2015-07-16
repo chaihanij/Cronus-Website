@@ -1,50 +1,61 @@
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Parent ID&nbsp;/&nbsp;Title</th>
-                <th>Description</th>
-                <th colspan="3"></th>
+<div class="panel panel-default">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
                 <tr>
-        </thead>
-        <tbody>
-            <% @all_wikis.each_with_index do |wiki,index| %>
-            <tr>
-                <td><%= index+1 %></td>
-                <td><%= wiki.id %></td>
-                <td>
-                   <%= wiki.title %>
-                </td>
-                <td>
-                    <% if wiki.root? then %>
-                        root
-                    <% else %>
-                        <%= wiki.parent_id %>&nbsp;/&nbsp;<%= wiki.parent.title %>
-                    <% end %>
-                </td>
-                <td>
-                    <%= truncate(wiki.description, length: 100) { link_to "more", wiki } %>
-                </td>
-                <td>
-                    <%= link_to wiki, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    <% end %>
-                </td>
-                <td>
-                    <%= link_to edit_wiki_path(wiki) do %>
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true">
-                    <% end %>
-                </td>
-                <td>
-                    <%= link_to wiki do %>
-                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                    <% end %>
-                </td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
+                    <th style="text-align: center;"><a>No.<a></th>
+                    <th style="text-align: center;"><%= sortable "id", "ID." %></th>
+                    <th style="text-align: center;"><%= sortable "title", "Title" %></th>
+                    <th style="text-align: center;"><%= sortable "parent_id", "Parent ID / Title" %></th>
+                    <th style="text-align: center;"><%= sortable "created_at", "Time create" %></th>
+                    <th style="text-align: center;"><%= sortable "updated_at", "Time update" %></th>
+                    <th style="text-align: center;"><%= sortable "is_public",  "Public" %></th>
+                    <th align="center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @wikis.each_with_index do |wiki,index| %>
+                <tr>
+                    <td><%= index+1 %></td>
+                    <td align="center"><%= wiki.id %></td>
+                    <td align="center">
+                       <%= wiki.title %>
+                    </td>
+                    <td align="center">
+                        <% if wiki.root? then %>
+                            
+                        <% else %>
+                            <%= wiki.parent_id %>&nbsp;/&nbsp;<%= wiki.parent.title %>
+                        <% end %>
+                    </td>
+                    <td align="center"><%= wiki.created_at.to_formatted_s(:db)  %></td>
+                    <td align="center"><%= wiki.updated_at.to_formatted_s(:db)  %></td>
+                    <td align="center">
+                      <% if wiki.is_public then %>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <% else %>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <% end %>
+                    </td>
+                    <td>
+                        <%= link_to wiki, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                        <% end %>   
+                
+                        <%= link_to  edit_wiki_path(wiki) , class: "btn btn-warning btn-xs" do %>
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                        <% end %>   
+               
+                        <%= link_to wiki, class: "btn btn-success btn-xs"  do %>
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                        <% end %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="text-center">
+    <%= paginate @wikis %>
 </div>

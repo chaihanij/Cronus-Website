@@ -73,9 +73,9 @@ class ContactsController < ApplicationController
       params.require(:contact).permit(:name, :email, :phone, :company, :subject, :message)
     end
     def sort_column
-      Contact.column_names.include?(params[:sort]) ? params[:sort] : "name"
+      Contact.column_names.include?(params[:sort]) ? params[:sort] : "id"
     end
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

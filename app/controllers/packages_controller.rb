@@ -6,7 +6,7 @@ class PackagesController < ApplicationController
   # GET /packages.json
   def index
     authorize! :manage, @packages , :message => "Access denied."
-    @packages = Package.order(sort_column + " " + sort_direction).order(:product_id => :asc).search(params[:search]).page(params[:page]).per(10)
+    @packages = Package.order(sort_column + " " + sort_direction).order(:product_id => :asc).search(params[:search]).page(params[:page]).per(50)
   end
 
   # GET /packages/1
@@ -71,19 +71,19 @@ class PackagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_package
-      @package = Package.find(params[:id])
+      @package = Package.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def package_params
-      params.require(:package).permit(:product_id, :operating_system_id, :name, :version, :package, :release_note, :release_package, :emergency_package, :notwork_package, :is_public, :checksum, :release_date, :build_date, :description)
+      params.require(:package).permit(:product_id, :operating_system_id, :name, :version, :package, :release_note, :release_package, :emergency_package, :notwork_package, :is_public, :checksum, :release_date, :build_date, :description, :latest)
     end
 
     def sort_column
-      Package.column_names.include?(params[:sort]) ? params[:sort] : "name"
+      Package.column_names.include?(params[:sort]) ? params[:sort] : "id"
     end
   
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

@@ -1,30 +1,40 @@
 class WikisController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_wiki, only: [:show, :edit, :update, :destroy]
 
   # GET /wikis
   # GET /wikis.json
   def index
-   @all_wikis = Wiki.searchAll(params[:search_all]).order(:updated_at => :desc).page(params[:page]).per(20)
-   @wikis = Wiki.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
+    authorize! :manage, @wikis , :message => "Access denied."
+    @wikis = Wiki.searchAll(params[:search]).order_parent.page(params[:page]).per(50)
+    # @wikis_json = Wiki.collection_to_json
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render :json => @wikis.to_json }
+    # end
   end
 
   # GET /wikis/1
   # GET /wikis/1.json
   def show
+    authorize! :manage, @wiki , :message => "Access denied."
   end
 
   # GET /wikis/new
   def new
+    authorize! :manage, @wiki , :message => "Access denied."
     @wiki = Wiki.new
   end
 
   # GET /wikis/1/edit
   def edit
+    authorize! :manage, @wiki , :message => "Access denied."
   end
 
   # POST /wikis
   # POST /wikis.json
   def create
+    authorize! :manage, @wiki , :message => "Access denied."
     @wiki = Wiki.new(wiki_params)
     
     respond_to do |format|
@@ -41,6 +51,7 @@ class WikisController < ApplicationController
   # PATCH/PUT /wikis/1
   # PATCH/PUT /wikis/1.json
   def update
+    authorize! :manage, @wiki , :message => "Access denied."
     respond_to do |format|
       if @wiki.update(wiki_params)
         format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
@@ -71,6 +82,13 @@ class WikisController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wiki_params
-      params.require(:wiki).permit(:title, :description, :body, :sidebody, :parent_id, :lft, :rgt, :depth, :children_count)
+      params.require(:wiki).permit(:title, :description, :body, :sidebody, :parent_id, :lft, :rgt, :depth, :children_count, :is_public)
+    end
+
+    def sort_column
+      Wiki.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

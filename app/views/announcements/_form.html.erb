@@ -17,12 +17,14 @@
         <%= f.label :title, class: "col-sm-2 control-label" %>
         <div class="col-sm-8">
           <%= f.text_field :title, id: "title", autocomplete: "off", class: "form-control", required: "required"%>
+          <i>(minimum is 2 characters) (maximum is 80 characters) </i>
         </div>
     </div>
     <div class="form-group has-warning">
         <%= f.label :description, class: "col-sm-2 control-label" %>
         <div class="col-sm-8">
           <%= f.text_area :description, id: "description", autocomplete: "off", class: "form-control",required: "required" %>
+           <i>(maximum is 255 characters) </i>
         </div>
     </div>
     <div class="form-group has-warning">
@@ -31,18 +33,23 @@
           <%= f.file_field :image, id:":image" %>
         </div>
     </div>
-     <!-- <div class="form-group" id="coverImagePreviewDiv" > 
-        <label class="col-sm-2 control-label">Preview Cover Image</label>
-         <div class="col-sm-8">
-            <img id="coverImagePreview" class="img-responsive size_image"/>
-        </div>
-    </div> -->
+
     <div class="form-group has-warning">
         <%= f.label :body, class: "col-sm-2 control-label" %>
         <div class="col-sm-8">
           <%= f.text_area :body, id:"body"%>
+          <i>(maximum is 65535 characters) </i>
         </div>
     </div>  
+  <div class="form-group has-warning">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :is_public %> Public
+        </label>
+      </div>
+    </div>
+  </div>
     <div class="form-group">
       <div class="col-sm-12 col-sm-offset-2">
           <%= f.submit class: "btn btn-primary", required: "required"%>

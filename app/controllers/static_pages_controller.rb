@@ -10,8 +10,19 @@ class StaticPagesController < ApplicationController
   def download
   	@products = Product.is_public
   end
+
   def contact
     @contact = Contact.new
+  end
+  def event
+    @events = Event.is_public.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
+  end 
+  def announcement
+    @announcements = Announcement.is_public.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
+  end
+
+  def wiki
+    @wikis = Wiki.is_public.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
   end
 
   def unauthorized_page

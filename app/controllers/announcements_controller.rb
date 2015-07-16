@@ -5,8 +5,8 @@ class AnnouncementsController < ApplicationController
   # GET /announcements
   # GET /announcements.json
   def index
-    @announcements_admin = Announcement.order(sort_column + " " + sort_direction).search(params[:search]).page(params[:admin_page]).per(20)
-    @announcements = Announcement.search(params[:search]).order(:updated_at => :desc).page(params[:page]).per(5)
+    authorize! :manage, @announcements , :message => "Access denied."
+    @announcements = Announcement.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(20)
   end
 
   # GET /announcements/1
@@ -76,14 +76,14 @@ class AnnouncementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def announcement_params
-      params.require(:announcement).permit(:title, :description, :body, :image, :email)
+      params.require(:announcement).permit(:title, :description, :body, :image, :email, :is_public)
     end
 
     def sort_column
-      Announcement.column_names.include?(params[:sort]) ? params[:sort] : "title"
+      Announcement.column_names.include?(params[:sort]) ? params[:sort] : "id"
     end
   
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

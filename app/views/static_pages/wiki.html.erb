@@ -1,0 +1,32 @@
+<section id="recent-works">
+    <div class="container">
+        <div class="center wow fadeInDown">
+            <h2>Wiki</h2>
+            <p class="lead">Wiki in system platform development team.</p>
+        </div>        
+        <div class="row">
+            <div class="col-md-8">
+                <% @wikis.each do |wiki| %>
+                <div class="item-wiki" >
+                        <h4><%= wiki.title %></h4>
+                        <h3><%= wiki.updated_at.strftime("%B %d, %Y") %></h3>
+                        <%= truncate(wiki.description, length: 100) { link_to "more", wiki } %></p>
+                        <%= button_to "Read More" , wiki, class: "btn btn-primary" , method: :get %>
+                </div>
+                <% end %>
+                <div class="text-center">
+                    <%= paginate @wikis %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="widget search">
+                    <%= form_tag static_wiki_path, :method => 'get', id: "frole_user" do %>
+                        <div class="form-group">
+                            <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+                         </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -12,6 +12,11 @@
           <span class="label label-danger">broken</span>
           <% end %>
       </p>
+      <% if can? :manage,  edit_package_path(@package) %>
+      <%= link_to edit_package_path(@package), class: "btn btn-warning btn-xs" do %>
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+      <% end %> 
+      <% end %>      
   </div>
   <div class="blog">
     <div class="row">
