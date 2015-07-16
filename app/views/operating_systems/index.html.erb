@@ -1,11 +1,11 @@
 <section class="container">
     <div class="center">
-        <h2>Operating Systems</h2>
+        <h2>Manege operating systems</h2>
         <!-- <p class="lead">Prodcut in system platform development team.</p> -->
     </div>
     <div class="blog">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-9">
                <div class="panel panel-default">
                   <div class="table-responsive">
                     <table class="table pretty">
@@ -14,7 +14,6 @@
                            <th>No.</th>
                            <th>Name</th>
                            <th>Version</th>
-
                            <th>Public</th>
                            <th></th>
                          </tr>
@@ -34,17 +33,16 @@
                             </td>
                              <td align="center">
                                 <%= link_to operating_system, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
-                                        <% end %>   
-                                
-                                        <%= link_to edit_operating_system_path(operating_system), class: "btn btn-warning btn-xs" do %>
-                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-                                        <% end %>   
-                               
-                                        <%= link_to operating_system, class: "btn btn-success btn-xs"  do %>
-                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
-                                        <% end %>
-        
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                <% end %>   
+                        
+                                <%= link_to edit_operating_system_path(operating_system), class: "btn btn-warning btn-xs" do %>
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                <% end %>   
+                       
+                                <%= link_to operating_system, class: "btn btn-success btn-xs"  do %>
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                <% end %>
                             </td>
                            </tr>
                          <% end %>
@@ -53,7 +51,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="widget search">
                     <form role="form">
                         <div class="form-group">

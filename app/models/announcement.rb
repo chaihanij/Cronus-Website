@@ -6,8 +6,8 @@ class Announcement < ActiveRecord::Base
     validates :description, length: { maximum: 255, too_long: "%{count} characters is the maximum allowed" }
     validates :body, length: { maximum: 65535, too_long: "%{count} characters is the maximum allowed" }
 
-    scope :limit_five, -> { where(:is_public => 1).limit(5).order(:updated_at => :desc) }
-    scope :limit_tree, -> { where(:is_public => 1).limit(3).order(:updated_at => :desc) }  
+    scope :limit_five, -> { where(:is_public => 1).limit(5).order(:created_at => :desc) }
+    scope :limit_tree, -> { where(:is_public => 1).limit(3).order(:created_at => :desc) }  
 
     def self.search(search)
     		if search
@@ -18,6 +18,9 @@ class Announcement < ActiveRecord::Base
   	end
     def self.new_update
       order(:updated_at => :desc)
+    end
+    def self.new_create
+      order(:created_at => :desc)
     end 
     def self.is_public
        where(:is_public => 1)

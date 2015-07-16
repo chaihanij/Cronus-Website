@@ -8,14 +8,14 @@ class Event < ActiveRecord::Base
 
 
 
-  scope :limit_six, -> { where(:is_public => 1).order(:updated_at => :desc).limit(6) }
+  scope :limit_six, -> { where(:is_public => 1).order(:created_at => :desc).limit(6) }
 
   def self.limit_eight
-  	where(:is_public => 1).limit(8).order(updated_at: :desc)
+  	where(:is_public => 1).limit(8).order(created_at: :desc)
   end
   	
   def self.limit_five
-    where(:is_public => 1).limit(5).order(updated_at: :desc)
+    where(:is_public => 1).limit(5).order(created_at: :desc)
  	end
 
  	def self.search(search)
@@ -29,5 +29,10 @@ class Event < ActiveRecord::Base
   def self.is_public
     where(:is_public => 1)
   end
-
+  def self.new_update
+      order(:updated_at => :desc)
+    end
+  def self.new_create
+      order(:created_at => :desc)
+  end 
 end

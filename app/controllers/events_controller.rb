@@ -6,7 +6,11 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     authorize! :manage, @event , :message => "Access denied."
-    @events = Event.search(params[:search]).order(sort_column + " " + sort_direction).order(:updated_at => :desc).page(params[:page]).per(20)
+    if params[:sort] == nil then
+      @events = Event.search(params[:search]).new_create.page(params[:page]).per(50)
+    else
+      @events = Event.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(50)
+    end
   end
 
   # GET /events/1

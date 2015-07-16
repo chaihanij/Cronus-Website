@@ -8,10 +8,11 @@
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="table-responsive">
-                        <table class="table table-striped pretty">
+                        <table class="table table-striped table-hover pretty">
                             <thead>
                                 <tr>
                                     <th>No.</th>
+                                    <th><%= sortable "id" %></th>
                                     <th><%= sortable "title" %></th>
                                     <th><%= sortable "created_at", "Time create" %></th>
                                     <th><%= sortable "updated_at", "Time update" %></th>
@@ -23,6 +24,7 @@
                                 <% @events.each_with_index do |event,index| %>
                                 <tr>
                                     <td><%= index+1 %></td>
+                                    <td><%= event.id %></td>
                                     <td><%= event.title %></td>
                                     <td><%= event.created_at.to_formatted_s(:db)  %></td>
                                     <td><%= event.updated_at.to_formatted_s(:db)  %></td>

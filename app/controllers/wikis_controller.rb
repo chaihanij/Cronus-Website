@@ -6,7 +6,11 @@ class WikisController < ApplicationController
   # GET /wikis.json
   def index
     authorize! :manage, @wikis , :message => "Access denied."
-    @wikis = Wiki.searchAll(params[:search]).order_parent.page(params[:page]).per(50)
+    if params[:sort] == nil then
+        @wikis = Wiki.searchAll(params[:search]).order_parent.page(params[:page]).per(50)
+    else
+        @wikis = Wiki.searchAll(params[:search]).order(sort_column + " " + sort_direction).order_parent.page(params[:page]).per(50)
+    end 
     # @wikis_json = Wiki.collection_to_json
     # respond_to do |format|
     #   format.html
@@ -86,9 +90,9 @@ class WikisController < ApplicationController
     end
 
     def sort_column
-      Wiki.column_names.include?(params[:sort]) ? params[:sort] : "id"
+      Wiki.column_names.include?(params[:sort]) ? params[:sort] : "parent_id"
     end
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

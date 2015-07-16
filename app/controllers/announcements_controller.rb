@@ -6,7 +6,12 @@ class AnnouncementsController < ApplicationController
   # GET /announcements.json
   def index
     authorize! :manage, @announcements , :message => "Access denied."
-    @announcements = Announcement.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(20)
+    if params[:sort] == nil then
+      @announcements = Announcement.search(params[:search]).new_create.page(params[:page]).per(50)
+    else
+      @announcements = Announcement.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(50)
+    end
+
   end
 
   # GET /announcements/1

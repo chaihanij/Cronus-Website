@@ -6,7 +6,11 @@ class PackagesController < ApplicationController
   # GET /packages.json
   def index
     authorize! :manage, @packages , :message => "Access denied."
-    @packages = Package.order(sort_column + " " + sort_direction).order(:product_id => :asc).search(params[:search]).page(params[:page]).per(50)
+    if params[:sort] == nil then
+      @packages = Package.search(params[:search]).page(params[:page]).per(50)
+    else
+      @packages = Package.order(sort_column + " " + sort_direction).search(params[:search]).page(params[:page]).per(50)
+    end
   end
 
   # GET /packages/1

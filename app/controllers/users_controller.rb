@@ -5,8 +5,12 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.order(sort_column + " " + sort_direction).search(params[:search]).page(params[:page]).per(20)
     authorize! :manage, @users , :message => "Access denied."
+    if params[:sort] == nil then
+      @users = User.search(params[:search]).page(params[:page]).per(50)
+    else
+      @users = User.order(sort_column + " " + sort_direction).search(params[:search]).page(params[:page]).per(50)
+    end
   end
 
   def show
