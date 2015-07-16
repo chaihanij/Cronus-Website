@@ -4,6 +4,9 @@
     "angular": "latest",
     "angular-ui-router": "latest",
     "angular-resource": "latest",
-    "blueimp-file-upload": "latest"
+    "blueimp-file-upload": "latest",
+    "fuelux": "latest",
+    "bootstrap-treeview": "latest",
+    "jstree": "latest"
   }
 }

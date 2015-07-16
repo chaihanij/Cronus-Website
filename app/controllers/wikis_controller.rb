@@ -1,16 +1,17 @@
 class WikisController < ApplicationController
-  
+  helper_method :sort_column, :sort_direction
   before_action :set_wiki, only: [:show, :edit, :update, :destroy]
 
   # GET /wikis
   # GET /wikis.json
   def index
     authorize! :manage, @wikis , :message => "Access denied."
-    @wikis = Wiki.collection_to_json
-    respond_to do |format|
-      format.html
-      format.json { render :json => @wikis.to_json }
-    end
+    @wikis = Wiki.searchAll(params[:search]).order_parent.page(params[:page]).per(50)
+    # @wikis_json = Wiki.collection_to_json
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render :json => @wikis.to_json }
+    # end
   end
 
   # GET /wikis/1
@@ -82,5 +83,12 @@ class WikisController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def wiki_params
       params.require(:wiki).permit(:title, :description, :body, :sidebody, :parent_id, :lft, :rgt, :depth, :children_count, :is_public)
+    end
+
+    def sort_column
+      Wiki.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    end
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 end

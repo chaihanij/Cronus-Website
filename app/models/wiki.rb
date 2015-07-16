@@ -1,4 +1,5 @@
 class Wiki < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
   acts_as_nested_set
   accepts_nested_attributes_for :children
 
@@ -16,20 +17,31 @@ class Wiki < ActiveRecord::Base
       if search
         where(['lower(title) LIKE ? OR lower(description) LIKE ?', "%#{search.strip.downcase}%", "%#{search.strip.downcase}%"])
       else
-        roots
+        all
       end
   end
 
   def self.is_public
     where(:is_public => 1)
   end
-
+  def self.order_parent
+    order('coalesce(parent_id, id), parent_id is not null, id')
+  end
 
   def self.collection_to_json(collection = roots)
     collection.inject([]) do |arr, wiki|
       arr << { id: wiki.id, tile: wiki.title, is_public: wiki.is_public, children: collection_to_json(wiki.children) }
     end
   end
+ 
+
+
+  # scope :parents, -> { where(:parent_id => nil) }
+  # scope :for_parent, -> { |parent| where(:parent_id => parent.id)}
+
+  # def children
+  #  Wiki.for_parent(self)
+  # end
 
 
   # def self.parents_from_collection
