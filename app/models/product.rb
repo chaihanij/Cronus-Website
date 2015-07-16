@@ -21,6 +21,6 @@ class Product < ActiveRecord::Base
 
     # find the lasted package
     def lastest_package_release
-    	self.packages.latest_package
+    	self.packages.where(:latest => 1).order(:release_date => :desc).first
     end
 end

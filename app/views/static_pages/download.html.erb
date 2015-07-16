@@ -13,10 +13,10 @@
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= product.name %></b>'s most current release is product 
                     
                     <% if (product.lastest_package_release != nil) %>
-                    <code><%= link_to  product.lastest_package_release.version, product.lastest_package_release %></code>
+                        <code>
+                        <%= link_to  product.lastest_package_release.version, product.lastest_package_release %>
+                        </code>
                     <% end %>
-                    
-
                     </p>
                     <% if (product.lastest_package_release != nil) %>
                     <p>
