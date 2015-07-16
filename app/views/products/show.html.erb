@@ -49,6 +49,10 @@
                                 <th style="text-align: left;">Size</th>
                                 <th style="text-align: left;">Checksum</th>
                                 <th style="text-align: left;">Status</th>
+                                <% if can? :manage, @package_in_product %>
+                                    <th>Public</th>
+                                    <th> </th>
+                                <% end %>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,6 +78,29 @@
                                     <% if package.notwork_package %>
                                         &nbsp;<span class="label label-danger">Broken</span>&nbsp;
                                     <% end %>
+                                </td>
+                                <% if can? :manage, package %>
+                                    <td align="center">
+                                      <% if package.is_public then %>
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                      <% else %>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                      <% end %>
+                                    </td>
+                                <% end %>
+                                <td align="center">
+                                    <% if can? :manage, package %>
+                                    <%= link_to package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                    <% end %>   
+                            
+                                    <%= link_to edit_package_path(package), class: "btn btn-warning btn-xs" do %>
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                    <% end %>   
+                                    <% end %>
+                                    <%= link_to package, class: "btn btn-success btn-xs"  do %>
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                    <% end %>   
                                 </td>
                             </tr>
                             <% end %>

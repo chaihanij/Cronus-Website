@@ -1,5 +1,8 @@
 class Product < ActiveRecord::Base
-	extend FriendlyId
+	validates :name, length: { maximum: 50, too_long: "%{count} characters is the maximum allowed", minimum: 2, too_short: "%{count} characters is the minimum allowed" }
+    validates :description, length: { maximum: 125, too_long: "%{count} characters is the maximum allowed" }
+
+    extend FriendlyId
 	friendly_id :name, use: :slugged
 
 	has_many :packages

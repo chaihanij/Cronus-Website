@@ -1,5 +1,8 @@
 class Wiki < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
+
+  validates :title, length: { maximum: 80, too_long: "%{count} characters is the maximum allowed", minimum: 2, too_short: "%{count} characters is the minimum allowed" }
+  validates :description, length: { maximum: 255, too_long: "%{count} characters is the maximum allowed" }
+  validates :body, length: { maximum: 65535, too_long: "%{count} characters is the maximum allowed" }
   acts_as_nested_set
   accepts_nested_attributes_for :children
 
