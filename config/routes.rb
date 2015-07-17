@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
   resources :contacts
   resources :packages
-  resources :packages
-  resources :packages
   resources :operating_systems
   resources :products
+  resources :image_json
   
   # ------------------
   # Config routes

@@ -57,12 +57,39 @@
     </div>
 <% end %>
 <script type="text/javascript">
- $(document).ready(function() {
-    $('#body').summernote(
-      {
-          height:300,
-          maximumImageFileSize: 1048576
-      } 
+$(document).ready(function() {
+    $('#body').summernote({ height:300, maximumImageFileSize: 1048576},"editor",
+      {   
+
+         
+          
+          onImageUpload: function(files, editor, welEditable) {
+                console.log(editor)
+                sendFile(files[0], editor, welEditable);
+          }
+      }
+
     );
- });
+    function sendFile(file, editor, welEditable) {
+        var data = new FormData();
+        data.append("image[imageFile]", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/image_json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data, status) {
+                if (status == 200) {
+                   editor.insertImage(welEditable, data.url);
+                } else {
+                  alert("Update image fail.");
+                }
+
+            }
+        });
+    }
+
+});
 </script>
