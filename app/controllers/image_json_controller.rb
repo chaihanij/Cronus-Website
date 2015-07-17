@@ -6,7 +6,7 @@ class ImageJsonController < ApplicationController
 	    if @image.save
 	      	render json: { url: @image.imageFile.url()}, status: 200
 	    else
-	       	render nothing: true, status: 500
+	       	render json:  { :errors => @image.errors.full_messages } , status: 422 
 	    end
   	end
 

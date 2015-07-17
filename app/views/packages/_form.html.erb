@@ -125,9 +125,40 @@
   </div>  
 <% end %>
 <script type="text/javascript">
-  $('#description').summernote({height:300});
-  $.fn.datepicker.defaults.format = "yyyy-mm-dd";
-  $('#build_date').datepicker();
-  $('#release_date').datepicker();
+$(document).ready(function() {
+    $.fn.datepicker.defaults.format = "yyyy-mm-dd";
+    $('#build_date').datepicker();
+    $('#release_date').datepicker();
+    var  editor2 = $('#description').summernote(
+      {   
+          onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+          },
+          height:300, 
+          maximumImageFileSize: 5242880
+      }
+    );
+    function sendFile(file, editor, welEditable) {
+        var data = new FormData();
+        data.append("image[imageFile]", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/image_json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+              $('#body').summernote('editor.insertImage', data.url);
+            },
+            error: function (xhr) {
+              var errors = $.parseJSON(xhr.responseText).errors
+              console.log(xhr);
+              alert(errors);
+            }
+        });
+    }
+});
 </script>
+
 

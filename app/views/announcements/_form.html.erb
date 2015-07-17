@@ -57,18 +57,15 @@
     </div>
 <% end %>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#body').summernote({ height:300, maximumImageFileSize: 1048576},"editor",
+  $(document).ready(function() {
+    var  editor2 = $('#body').summernote(
       {   
-
-         
-          
           onImageUpload: function(files, editor, welEditable) {
-                console.log(editor)
                 sendFile(files[0], editor, welEditable);
-          }
+          },
+          height:300, 
+          maximumImageFileSize: 5242880
       }
-
     );
     function sendFile(file, editor, welEditable) {
         var data = new FormData();
@@ -80,16 +77,15 @@ $(document).ready(function() {
             cache: false,
             contentType: false,
             processData: false,
-            success: function(data, status) {
-                if (status == 200) {
-                   editor.insertImage(welEditable, data.url);
-                } else {
-                  alert("Update image fail.");
-                }
-
+            success: function(data) {
+              $('#body').summernote('editor.insertImage', data.url);
+            },
+            error: function (xhr) {
+              var errors = $.parseJSON(xhr.responseText).errors
+              console.log(xhr);
+              alert(errors);
             }
         });
     }
-
 });
 </script>
