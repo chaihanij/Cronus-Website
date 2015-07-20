@@ -21,7 +21,6 @@ class WikisController < ApplicationController
   # GET /wikis/1
   # GET /wikis/1.json
   def show
-    authorize! :manage, @wiki , :message => "Access denied."
   end
 
   # GET /wikis/new
