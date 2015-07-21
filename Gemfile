@@ -80,3 +80,6 @@ gem 'friendly_id'
 
 # table search and sort
 gem "ransack"
+
+gem 'html5shiv-js-rails'
+gem 'respond-js-rails'
