@@ -18,12 +18,9 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      address: "smtp.gmail.com",
-      port: 587,
-      domain: "mail.google.com",
-      authentication: "plain",
-      enable_starttls_auto: true,
-      user_name: "ch.wachirawat@gmail.com",
+      address: "mail.postbox.in.th",
+      domain: "mail.postbox.in.th",
+      user_name: "wachh443@entro.postbox.in.th",
       password: "kong110534"
   }
 
@@ -46,15 +43,7 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-
-  config.assets.precompile += %w( 
-    
-    application-admin.js
-    application-admin.css
-
-    application-user.js
-    application-user.css
-  )
+  
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   Paperclip.options[:command_path] = "/usr/local/bin/"

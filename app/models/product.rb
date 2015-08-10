@@ -7,6 +7,9 @@ class Product < ActiveRecord::Base
 
 	has_many :packages
 
+    scope :limit_five, ->(){ limit(5).order(created_at: :desc) }
+    scope :is_public, -> { where(:public => 1) }
+
     def self.search(search)
         if search
             where(['lower(name) LIKE ? OR lower(description) LIKE ?', "%#{search.strip.downcase}%", "%#{search.strip.downcase}%"])
@@ -15,12 +18,7 @@ class Product < ActiveRecord::Base
         end
     end
 
-    scope :is_public, -> { where(:public => 1) }
-
-
-	def self.limit_five
-    	limit(5).order(created_at: :desc)
-    end
+    
 
     # find the lasted package
     def lastest_package_release

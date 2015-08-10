@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :documents
   resources :contacts
   resources :packages
   resources :operating_systems
@@ -12,16 +13,28 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   resources :events
   resources :announcements
-  resources :documents
   resources :wikis
   resources :images
   resources :users
+
   get '/download' , to:'static_pages#download'
   get '/contact-us' ,  to:'static_pages#contact'
   get '/static_announcement' ,  to:'static_pages#announcement'
   get '/static_event' ,  to:'static_pages#event'
   get '/static_wiki' ,  to:'static_pages#wiki'
 
+  # API V1
+  namespace :api, defaults: {:format=> 'json'} do
+    namespace :v1 do
+      resources :documents do
+      end
+      resources :products do
+        collection do
+          get 'products_is_public'
+        end
+      end
+    end
+  end
   # -------------
 
 
