@@ -40,7 +40,9 @@ module WikisHelper
       output="<ul>"
       output << "<li><div><b>#{link_to(root.title, root)}</b></div></li>"
       for x in root.children
+        if x.is_public then
          output << list_by_root(x)
+        end
       end 
       output << "</ul>"
   end
