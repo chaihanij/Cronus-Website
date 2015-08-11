@@ -21,8 +21,8 @@
                       	},
                       	isArray: true
                     }
-  				})
-                Documnets: $resource('/api/v1/documnets/:collectionCtrl:id/:memberCtrl',{
+  				}),
+                Documnets: $resource('/api/v1/documents:collectionCtrl:id/:memberCtrl',{
                     id: '@id',
                     collectionCtrl: '@collectionCtrl',
                     memberCtrl: '@memberCtrl'

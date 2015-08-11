@@ -1,8 +1,8 @@
 (function(){
     
     var module = angular.module('cronus.document.controllers',['cronus.api.services','cronus.api.token']);
-    module.controller('FileUploadPanelCtrl', function($scope, Api, Token, $http){
-        
+    module.controller('FileUploadPanelCtrl', function($scope, Api, Token, $http, Upload){
+        // console.log(Upload);
         /**
         * Initialize  all the variables
         */
@@ -14,6 +14,7 @@
         }
 
 
+
         $scope.csrf_param_content = Token.csrf_param_content();
         $scope.csrf_token_content = Token.csrf_token_content();
          
@@ -21,41 +22,30 @@
         $scope.products_is_public = Api['Products'].products_is_public();
 
         $scope.param = {};
-        $scope.createDocumnet = function (documents) {
+        $scope.createDocumnet = function () {
 
-            var file = document.getElementById('document_document').files[0];
-            var file = file ? file : null;
-            var documentValue =[] ;
-            documentValue['name'] = documents.name;
-            documentValue['description'] = documents.description;
-            documentValue['is_public'] = documents.is_public;
-            documentValue['product_id'] = documents.product_id;
-            documentValue['document'] = file;
-            // documentValue['authenticity_token'] =  Api['Products'].products_is_public();
             
-            // console.log(documentValue); 
 
             var formData = new FormData();
-            formData.append("authenticity_token]", $scope.csrf_token_content);
-            formData.append("document[name]", documents.name);
-            formData.append("document[description]", documents.description);
-            formData.append("document[is_public]", documents.is_public);
-            formData.append("document[product_id]", documents.product_id);
-            formData.append("document[document]" ,file);
-
-            $http({
-                method: 'POST',
-                url: '/api/v1/documents',
-                data: formData,
-                headers: {
-                    contentType: false,
-                }
-            }).success(function(data, status, headers, config) {
-                console.log(data, status, headers, config);
-            }).error(function (data, status, headers, config) {
-                // handle error things
-                console.log(data, status, headers, config);
+            // formData.append("authenticity_token]", $scope.csrf_token_content);
+            formData.append("document[name]", $scope.doc.name);
+            formData.append("document[description]", $scope.doc.description);
+            formData.append("document[is_public]", $scope.doc.is_public);
+            formData.append("document[product_id]", $scope.doc.product_id);
+            formData.append("document[document]" , $scope.doc.file);
+            var doc = [];
+            doc['name']= $scope.doc.name;
+            doc['description']= $scope.doc.description;
+            doc['is_public']= $scope.doc.is_public;
+            doc['product_id']= $scope.doc.product_id;
+            doc['document']=  $scope.doc.file;
+            console.log(doc);
+            Api['Documnets'].create(doc, function(data){
+                console.log(data);
+            }, function(error){
+                console.log(error)
             });
+    
         }
     });
 

@@ -1,7 +1,8 @@
 'use strict';
 (function(){
-	var CronusApp = angular.module('cronus', [
+	var cronusApp = angular.module('cronus', [
 		'ui.router',
-		'cronus.document'
+		'cronus.document',
+		'ngFileUpload'
 	]);
 }());

@@ -19,18 +19,24 @@ module Api
             # POST /documents
             # POST /documents.json
             def create
-
-                @document = Document.new(document_params)           
-                if @document.save
-                    respond_with @document.to_json
-                else  
-                    respond_with @document.errors.to_json, status: :unprocessable_entity 
+                params.each do |key,value|
+                    Rails.logger.warn "Param #{key}: #{value}"
                 end
+                # logger.debug "Documnet should be valid: #{@doc}"
+              
+                msg = { :status => "ok", :message => "Success!", :html => "<b>...</b>" }
+                respond_with msg
+                # @document = Document.new(document_params)           
+                # if @document.save
+                #     respond_with @document.to_json
+                # else  
+                #     respond_with @document.errors.to_json, status: :unprocessable_entity 
+                # end
             end
             # PATCH/PUT /documents/1
             # PATCH/PUT /documents/1.json
             def update
-                respond_with Document.find(params[:id]).update_attributes(params[:document])
+                respond_with Document.find(params[:id]).update_attributes(params[:doc])
             end
             # DELETE /documents/1
             # DELETE /documents/1.json
@@ -41,7 +47,7 @@ module Api
             private
              
             def document_params
-                params.require(:document).permit(:name, :description, :document, :is_public, :product_id)
+                params.require(:doc).permit(:name, :description, :document, :is_public, :product_id)
             end
 
         end
