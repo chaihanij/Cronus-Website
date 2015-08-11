@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723084406) do
+ActiveRecord::Schema.define(version: 20150811041447) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -154,15 +154,15 @@ ActiveRecord::Schema.define(version: 20150723084406) do
 
   create_table "wikis", force: :cascade do |t|
     t.string   "title",          limit: 255
-    t.text     "body",           limit: 65535
+    t.text     "body",           limit: 4294967295
     t.text     "sidebody",       limit: 65535
     t.integer  "parent_id",      limit: 4
-    t.integer  "lft",            limit: 4,                 null: false
-    t.integer  "rgt",            limit: 4,                 null: false
-    t.integer  "depth",          limit: 4,     default: 0, null: false
-    t.integer  "children_count", limit: 4,     default: 0, null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.integer  "lft",            limit: 4,                      null: false
+    t.integer  "rgt",            limit: 4,                      null: false
+    t.integer  "depth",          limit: 4,          default: 0, null: false
+    t.integer  "children_count", limit: 4,          default: 0, null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.string   "description",    limit: 255
     t.boolean  "is_public",      limit: 1
   end
