@@ -9,7 +9,7 @@
                   <th><%= sortable "build_date", "Build date" %></th>
                   <th><%= sortable "release_date", "Release date" %></th>
                   <th><%= sortable "is_public" , "Public" %></th>
-                  <th></th>
+                  <th colspan="3"></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +41,7 @@
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <% end %>
                     </td>
-                    <td align="center">
+                    <td align="center" colspan="3">
                         <%= link_to package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
                         <% end %>   

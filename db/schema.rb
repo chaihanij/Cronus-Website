@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715034942) do
+ActiveRecord::Schema.define(version: 20150723084406) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -39,10 +39,14 @@ ActiveRecord::Schema.define(version: 20150715034942) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.string   "documnet_file_name",    limit: 255
-    t.string   "documnet_content_type", limit: 255
-    t.integer  "documnet_file_size",    limit: 4
-    t.datetime "documnet_updated_at"
+    t.string   "name",                  limit: 255
+    t.string   "description",           limit: 255
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
+    t.boolean  "is_public",             limit: 1
+    t.integer  "product_id",            limit: 4
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
@@ -163,9 +167,11 @@ ActiveRecord::Schema.define(version: 20150715034942) do
     t.boolean  "is_public",      limit: 1
   end
 
+  add_index "wikis", ["description"], name: "index_wikis_on_description", using: :btree
   add_index "wikis", ["lft"], name: "index_wikis_on_lft", using: :btree
   add_index "wikis", ["parent_id"], name: "index_wikis_on_parent_id", using: :btree
   add_index "wikis", ["rgt"], name: "index_wikis_on_rgt", using: :btree
+  add_index "wikis", ["title"], name: "index_wikis_on_title", using: :btree
 
   add_foreign_key "packages", "operating_systems"
   add_foreign_key "packages", "products"

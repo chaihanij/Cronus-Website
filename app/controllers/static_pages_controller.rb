@@ -15,14 +15,26 @@ class StaticPagesController < ApplicationController
     @contact = Contact.new
   end
   def event
-    @events = Event.is_public.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(5)
+    @events = Event.is_public
+                .search(params[:search])
+                .order(:created_at => :desc)
+                .page(params[:page])
+                .per(5)
   end 
   def announcement
-    @announcements = Announcement.is_public.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(5)
+    @announcements = Announcement.is_public
+                      .search(params[:search])
+                      .order(:created_at => :desc)
+                      .page(params[:page])
+                      .per(5)
   end
 
   def wiki
-    @wikis = Wiki.is_public.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(5)
+    @wikis = Wiki.is_public
+            .search(params[:search])
+            .order(:created_at => :desc)
+            .page(params[:page])
+            .per(5)
   end
 
   def unauthorized_page

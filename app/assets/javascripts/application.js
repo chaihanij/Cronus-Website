@@ -20,5 +20,9 @@
 //= require corlate/js/respond.min.js
 //= require corlate/js/wow.min.js
 //= require bootstrap-datepicker
+//= require angular
+//= require angular-resource
+//= require angular-ui-router
+//= require ng-file-upload
+//= require ng-file-upload-shim
 //= require_tree .
-$('.alert').fadeOut(4000);

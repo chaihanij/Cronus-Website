@@ -22,14 +22,14 @@
                     <% if  !(user == current_user) then %>
                       <%= form_for(user) do |f| %>
                        <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-                       <%= f.submit 'Change Role', :class => 'btn btn-primary btn-xs' %>
+                       <%= f.submit 'Change Role', :class => 'btn btn-primary btn-sm' %>
                       <% end %>
                     <% else %>
                       <%= label(:role, user.role) %>
                     <% end %>
                    </td>
                    <td>
-                     <%= button_to("Delete user", user, :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-primary btn-xs') unless user == current_user %>
+                     <%= button_to("Delete user", user, :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-primary btn-sm') unless user == current_user %>
                    </td>
                  </tr>
                <% end %>

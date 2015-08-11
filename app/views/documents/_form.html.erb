@@ -1,21 +1,49 @@
-<%= form_for(@document) do |f| %>
-  <% if @document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+<%= form_for(@document, html: {class: 'form-horizontal'}) do |f| %>
+   <div class="form-group">
+        <div class="col-sm-2"></div>
+        <% if @document.errors.any? %>
+        <div id="error_explanation" class="col-sm-8 alert alert-danger" role="alert" >
+          <h2><%= pluralize(@document.errors.count, "error") %> prohibited this package from being saved:</h2>   
 
-      <ul>
-      <% @document.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+          <% @document.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+        <% end %>
+  </div>
+  <div class="form-group has-warning">
+      <label class="col-sm-2 control-label">Prodcut</label>
+      <div class="col-sm-8">
+        <%= f.select(:product_id, Product.is_public.collect {|mt| [ mt.name, mt.id ] }, {:include_blank => 'Please select product'}, class: 'form-control',required: "required") %>
+      </div>
+  </div>
+  <div class="form-group has-warning">
+      <label class="col-sm-2 control-label">Prodcut</label>
+      <div class="col-sm-8">
+        <%= f.select(:product_id, Product.is_public.collect {|mt| [ mt.name, mt.id ] }, {:include_blank => 'Please select product'}, class: 'form-control',required: "required") %>
+      </div>
+  </div>
+  <div class="form-group has-warning">
+      <label class="col-sm-2 control-label">Document file</label>
+      <div class="col-sm-8" >
+        <%= f.file_field :document ,id: "document" %>
+         <i>The maximum file size is 100 megabytes.</i>
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-3 col-sm-offset-2">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :is_public %><b>Public</b>
+        </label>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :documnet %><br>
-    <%= f.file_field :documnet %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+        <%= f.submit class:"btn btn-primary btn-lg" %>
+    </div>
+  </div>  
 <% end %>
