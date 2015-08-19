@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
 	friendly_id :name, use: :slugged
 
 	has_many :packages
-
+    has_many :documents
     scope :limit_five, ->(){ limit(5).order(created_at: :desc) }
     scope :is_public, -> { where(:public => 1) }
 

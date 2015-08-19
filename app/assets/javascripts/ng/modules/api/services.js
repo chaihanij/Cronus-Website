@@ -22,10 +22,11 @@
                       	isArray: true
                     }
   				}),
-                Documnets: $resource('/api/v1/documents:collectionCtrl:id/:memberCtrl',{
+                Documnets: $resource('/api/v1/documents:collectionCtrl:id:product_id/:memberCtrl',{
                     id: '@id',
                     collectionCtrl: '@collectionCtrl',
-                    memberCtrl: '@memberCtrl'
+                    memberCtrl: '@memberCtrl',
+                    product_id: '@product_id',
                 },{
                     index: {
                         method: 'GET',
@@ -34,7 +35,12 @@
                     },
                     create: {
                         method: 'POST'
-                    }
+                    },
+                    get_with_prodcut: {
+                        method: 'GET',
+                        isArray: true,
+                        responseType: 'json'
+                    } 
                 })
   			};
   		}

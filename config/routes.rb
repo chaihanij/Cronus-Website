@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   resources :events
-  resources :announcements
+  resources :announcements do 
+    collection do
+      get 'feed'
+    end
+  end
   resources :wikis
   resources :images
   resources :users
@@ -22,11 +26,15 @@ Rails.application.routes.draw do
   get '/static_announcement' ,  to:'static_pages#announcement'
   get '/static_event' ,  to:'static_pages#event'
   get '/static_wiki' ,  to:'static_pages#wiki'
-
+  get '/static_document', to: 'static_pages#document'
+  
   # API V1
   namespace :api, defaults: {:format=> 'json'} do
     namespace :v1 do
       resources :documents do
+        collection do
+            get 'document_by_prodcut'
+        end 
       end
       resources :products do
         collection do

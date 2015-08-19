@@ -12,9 +12,9 @@ module Api
             end
             # GET /documents/1
             # GET /documents/1.json
-            def show
-                respond_with Document.find(params[:id])
-            end
+            # def show
+            #     respond_with Document.find(params[:id])
+            # end
              
             # POST /documents
             # POST /documents.json
@@ -44,6 +44,11 @@ module Api
                 respond_with Document.destroy(params[:id])
             end
             
+            def get_with_prodcut
+                @documents = Document.with_prodcut(params[:product_id])
+                respond_with @documents
+            end
+
             private
              
             def document_params

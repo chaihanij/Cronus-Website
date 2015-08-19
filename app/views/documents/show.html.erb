@@ -1,29 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @document.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @document.description %>
-</p>
-
-<p>
-  <strong>Document:</strong>
-  <%= @document.document %>
-</p>
-
-<p>
-  <strong>Is public:</strong>
-  <%= @document.is_public %>
-</p>
-
-<p>
-  <strong>Product:</strong>
-  <%= @document.product_id %>
-</p>
-
-<%= link_to 'Edit', edit_document_path(@document) %> |
-<%= link_to 'Back', documents_path %>
+<section id="blog" class="container">
+    <div class="center" style="padding-bottom: 30px;">
+        <h2><%= @document.name %></p></h2>
+       
+        <p class="lead"><%= @document.description %></p>
+    </div>
+    <div class="blog">
+        <div class="row">
+            <div class="col-md-9">
+                <% if (@document.document.url() && @document.document.url() != '')%>
+                    <iframe src="/pdfjs/web/viewer.html?file=<%= absolute_attachment_url(@document.document) %>" style="border: 0" width="100%" height="500" frameborder="1" scrolling="yes"></iframe>
+                <% end %>
+            </div>
+            <div class="col-md-3">
+                <!-- <div class="bs-example">  
+                </div> -->
+                <p>Prodcut&nbsp;&nbsp;&nbsp;<b><% if (@document.product != nil) then %> <%= @document.product.name %> <% else %> Othen product <% end %></b></p>
+                <% if can? :manage , edit_document_path %>
+                    <%= link_to 'Edit', edit_document_path(@document),class: "btn btn-primary btn-block" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</section>

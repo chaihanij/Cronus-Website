@@ -1,37 +1,88 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Documents</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Document</th>
-      <th>Is public</th>
-      <th>Product</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @documents.each do |document| %>
-      <tr>
-        <td><%= document.name %></td>
-        <td><%= document.description %></td>
-        <td><%= document.document %></td>
-        <td><%= document.is_public %></td>
-        <td><%= document.product_id %></td>
-        <td><%= link_to 'Show', document %></td>
-        <td><%= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-
-<%= link_to 'New Document', new_document_path %>
-<file-upload></file-upload>
+<section id="recent-works">
+    <div class="container">
+        <div class="center wow fadeInDown">
+            <h2>Manage document</h2>
+            <p class="lead">Manage document in system platform development team.</p>
+        </div>        
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>ID</th>
+                                    <th colspan="2">Name</th>                           
+                                    <th>Product</th>
+                                    <th>Time update</th>
+                                    <th>Public</th>
+                                    <th></th>
+                                </tr>
+                            </thead>                          
+                            <tbody>
+                                <% @documents.each_with_index do |document,index| %>
+                                <tr>
+                                    <td><%= index + 1  %></td>
+                                    <td><%= document.id %></td>
+                                    <td colspan="2"><%= document.name %></td>
+                                    <td>
+                                        <% if (document.product != nil) then %>
+                                            <%= document.product.name %> 
+                                          <% else %>
+                                             Othen product
+                                        <% end %>
+                                    </td>
+                                    <td><%= document.updated_at.to_formatted_s(:db)  %></td>
+                                    <td align="center">
+                                      <% if document.is_public then %>
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                      <% else %>
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                      <% end %>
+                                    </td>
+                                    <td>
+                                        <%= link_to document, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                        <% end %>
+<!--                                     </td>
+                                    <td> -->
+                                        <%= link_to  edit_document_path(document) , class: "btn btn-warning btn-xs" do %>
+                                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                        <% end %>
+<!--                                     </td>
+                                    <td>  -->
+                                        <%= link_to document, class: "btn btn-success btn-xs"  do %>
+                                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                        <% end %>
+                                    </td>
+                                </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <%= paginate @documents %>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="widget search">
+                    <%= form_tag documents_path, :method => 'get' do %>
+                        <div class="form-group">
+                        <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+                        </div>
+                    <% end %>
+                    <form role="form">
+                        <% if can? :manage, new_document_path %>
+                            <div class="form-group">
+                              <%= link_to 'New Document', new_document_path , class: "btn btn-primary btn-block"%>
+                            </div>
+                        <% end %>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <file-upload></file-upload> -->

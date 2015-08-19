@@ -154,6 +154,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pdfjs_rails (0.0.1)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     rack (1.6.4)
@@ -262,6 +263,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-twitter
   paperclip (~> 4.2)
+  pdfjs_rails
   rails (= 4.2.1)
   ransack
   respond-js-rails
