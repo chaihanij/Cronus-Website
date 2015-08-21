@@ -1,0 +1,119 @@
+<section id="contact-info" class="container">
+    <div class="center" style="padding-bottom:10px">                
+        <h2>Download the <%= @product.name %> product</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 id="transitions">Packages<small></small></h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= @product.name %></b>'s most current release is product 
+            <code>
+                <% if (@product.lastest_package_release != nil ) %>
+                    <%= link_to  @product.lastest_package_release.version, [@product.lastest_package_release.product, @product.lastest_package_release] %>
+                <% end %>
+            </code>
+
+            </p>
+            <% if (@product.lastest_package_release != nil ) %>
+            <p>
+                <a href="<%= @lastest_package_release.package %>" class="btn btn-primary" >Get the latest!</a>
+                <% if @lastest_package_release.release_package %>
+                       <span class="label label-success">Release</span>&nbsp;
+                <% end %>
+                <% if @lastest_package_release.emergency_package %>
+                    <span class="label label-warning">Emergency</span>&nbsp;
+                <% end %>
+                <I>Size&nbsp;(<b><%= @lastest_package_release.package_file_size %></b>)</I>,&nbsp;
+                <I>Checksum&nbsp;(<b><%= @lastest_package_release.checksum %></b>)</I>
+            </p>
+            <i>Release Dates <a><%= @lastest_package_release.release_date.to_formatted_s(:rfc822) %></a> </i>
+            
+            <% if (@lastest_package_release.release_note_file_name != nil) then %>
+                <h5>Release Notes for 
+                    <a href="<%= @product.lastest_package_release.release_note %>"><%= @lastest_package_release.name %></a>
+                </h5>
+            <% end %>
+            <% end %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="page-header">Latest <%= @product.name %> Release</h4>
+            <div class="panel panel-default">
+                <div class="table-responsive">
+                    <table id="prodcut_show" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>OS</th>
+                                <th>Release Dates</th>
+                                <th>Size</th>
+                                <th>Status</th>
+                                <% if can? :manage, @package_in_product %>
+                                    <th>Public</th>
+                                    <th colspan="3"> </th>
+                                <% end %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @package_in_product.each do |package| %>
+                            <tr>
+                                <td>
+                                    <%= link_to package.name, [package.product, package] %> 
+                                </td>
+                                <td>
+                                    <% if (package.operating_system != nil) then %>
+                                        <%= package.operating_system.name %>&nbsp;&nbsp;&nbsp;<%= package.operating_system.version %>
+                                    <% else %>
+                                       Othen operating system
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <% if (package.release_date != nil) %>
+                                        <b><%= package.release_date.to_formatted_s(:rfc822)  %></b>
+                                    <% end %>
+                                </td>
+                                <td><%= package.package_file_size  %></td>
+                                <td>
+                                    <% if  package.release_package %>
+                                        <span class="label label-success">Release</span>&nbsp;
+                                    <% end %>    
+                                    <% if package.emergency_package %>
+                                        &nbsp;<span class="label label-warning">Emergency </span>&nbsp;
+                                    <% end %>
+                                    <% if package.notwork_package %>
+                                        &nbsp;<span class="label label-danger">Broken</span>&nbsp;
+                                    <% end %>
+                                </td>
+                                <% if can? :manage, [package.product, package] %>
+                                <td>
+                                    <% if package.is_public then %>
+                                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    <% else %>
+                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <%= link_to [package.product, package], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <%= link_to edit_product_package_path(package.product, package), class: "btn btn-warning btn-xs" do %>
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                    <% end %>
+                                </td>
+                                <% end %>
+                                <td>
+                                    <%= link_to [package.product, package], class: "btn btn-success btn-xs"  do %>
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                    <% end %>
+                                </td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

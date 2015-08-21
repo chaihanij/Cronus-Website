@@ -17,8 +17,11 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    @package_in_product = @product.packages.where(:is_public => 1).order(:release_date => :desc)
-    @lastest_package_release = @product.lastest_package_release
+    authorize! :manage, @packages , :message => "Access denied."
+    @last_update_documents = @product.documents.last_updated
+    @last_update_packages = @product.packages.last_updated
+    # @package_in_product = @product.packages.where(:is_public => 1).order(:release_date => :desc)
+    # @lastest_package_release = @product.lastest_package_release
   end
 
   # GET /products/new
@@ -64,6 +67,18 @@ class ProductsController < ApplicationController
     end
   end
 
+  # GET /products/download/1
+  def download
+    # logger.debug "product #{@product.id}"
+    @product = Product.friendly.find(params[:product_id])
+    @package_in_product = @product.packages.where(:is_public => 1).order(:release_date => :desc)
+    @lastest_package_release = @product.lastest_package_release
+  end
+
+  def document
+    @product = Product.friendly.find(params[:product_id])
+  end
+
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
@@ -79,6 +94,7 @@ class ProductsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.friendly.find(params[:id])
+      # logger.debug "product #{@product.id}"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -3,20 +3,20 @@
       <h1><%= @package.name %></h2>
       <p class="lead">
           <% if  @package.release_package %>
-            <span class="label label-success">release</span>
+            <span class="label label-success">Release</span>
           <% end %>    
           <% if @package.emergency_package %>
-            <span class="label label-warning">emergency</span>
+            <span class="label label-warning">Emergency</span>
           <% end %>
           <% if @package.notwork_package %>
-          <span class="label label-danger">broken</span>
+          <span class="label label-danger">Broken</span>
           <% end %>
       </p>
-      <% if can? :manage,  edit_package_path(@package) %>
-      <%= link_to edit_package_path(@package), class: "btn btn-warning btn-xs" do %>
-          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-      <% end %> 
-      <% end %>      
+      <% if can? :manage, edit_product_package_path %>
+      <form role="form">
+        <%= link_to 'Edit', edit_product_package_path(@package.product, @package),class: "btn btn-primary" %>
+      </form>
+      <% end %>
   </div>
   <div class="blog">
     <div class="row">
@@ -24,7 +24,7 @@
           <div class="form-horizontal" role="form">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">OS</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <% if (@package.operating_system != nil) then %>
                       <label class="control-label"> <%= @package.operating_system.name %>&nbsp;&nbsp;&nbsp;<%= @package.operating_system.version %> </label>
                     <% else %>
@@ -34,7 +34,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Product</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <% if (@package.product.name != nil) then %>
                       <label class="control-label">
                          <%= @package.product.name %>
@@ -46,7 +46,7 @@
               </div>
               <div class="form-group">
                   <label class="col-sm-2 control-label">Build date</label>
-                  <div class="col-sm-10" >
+                  <div class="col-sm-8" >
                     <label class="control-label">
                          <%= @package.build_date %>
                     </label>
@@ -54,7 +54,7 @@
               </div>
               <div class="form-group">
                   <label class="col-sm-2 control-label">Release date</label>
-                  <div class="col-sm-10" >
+                  <div class="col-sm-8" >
                     <label class="control-label">
                       <%= @package.release_date %>
                     </label>
@@ -62,7 +62,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Release note</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <label class="control-label">
                       <a href="<%= @package.release_note %>">
                         <%= @package.release_note_file_name %>
@@ -72,7 +72,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Description</label>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <% if (@package.description != nil) then %>
                     <div class="jumbotron">
                         <%= @package.description.html_safe %>
@@ -81,7 +81,7 @@
                 </div>
               </div>
               <div class="form-group"> 
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-sm-offset-2 col-sm-8">
                   <% if (@package.package_file_name != nil) then %>
                   <a href="<%= @package.package %>" class="btn btn-primary" >Download</a>
                   <br>
