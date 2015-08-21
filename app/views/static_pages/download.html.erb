@@ -6,7 +6,7 @@
     <div  class="container">
    		<% @products.each do |product| %>
 		<div class="row item" >
-			<h4><%= link_to product.name , product %></h4>
+			<h4><%= link_to product.name , product_download_path(product) %></h4>
 			<div class="row">
 				<div class="col-md-12">
                     <h5>Release Package</h5>
@@ -14,7 +14,7 @@
                     
                     <% if (product.lastest_package_release != nil) %>
                         <code>
-                        <%= link_to  product.lastest_package_release.version, product.lastest_package_release %>
+                        <%= link_to  product.lastest_package_release.version, [product.lastest_package_release.product, product.lastest_package_release] %>
                         </code>
                     <% end %>
                     </p>

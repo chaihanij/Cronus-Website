@@ -2,10 +2,10 @@ class StaticPagesController < ApplicationController
     def home
       @annNew = Announcement.limit_tree
       @announcement_limit_five = Announcement.limit_five
-          @events = Event.limit_six
-          @events_limit_five = Event.limit_five
-          @wikis = Wiki.limit_five
-          @products = Product.limit_five
+      @events = Event.limit_six
+      @events_limit_five = Event.limit_five
+      @wikis = Wiki.limit_five
+      @products = Product.limit_five
     end
     def download
       @products = Product.is_public
@@ -40,5 +40,9 @@ class StaticPagesController < ApplicationController
     end
     
     def unauthorized_page
+      @announcement_limit_five = Announcement.limit_five
+      @events_limit_five = Event.limit_five
+      @wikis = Wiki.limit_five
+      @products = Product.limit_five
     end
 end

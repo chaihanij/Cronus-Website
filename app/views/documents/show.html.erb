@@ -1,24 +1,66 @@
 <section id="blog" class="container">
     <div class="center" style="padding-bottom: 30px;">
         <h2><%= @document.name %></p></h2>
-       
-        <p class="lead"><%= @document.description %></p>
+       <p class="lead"><%= @document.description %></p>
     </div>
     <div class="blog">
         <div class="row">
             <div class="col-md-9">
                 <% if (@document.document.url() && @document.document.url() != '')%>
-                    <iframe src="/pdfjs/web/viewer.html?file=<%= absolute_attachment_url(@document.document) %>" style="border: 0" width="100%" height="500" frameborder="1" scrolling="yes"></iframe>
+                    <iframe src="/pdfjs/web/viewer.html?file=<%= absolute_attachment_url(@document.document) %>" style="border: 3" width="100%" height="500px" frameborder="1" scrolling="yes"></iframe>
                 <% end %>
             </div>
-            <div class="col-md-3">
-                <!-- <div class="bs-example">  
-                </div> -->
-                <p>Prodcut&nbsp;&nbsp;&nbsp;<b><% if (@document.product != nil) then %> <%= @document.product.name %> <% else %> Othen product <% end %></b></p>
-                <% if can? :manage , edit_document_path %>
-                    <%= link_to 'Edit', edit_document_path(@document),class: "btn btn-primary btn-block" %>
-                <% end %>
-            </div>
+            
+            <aside class="col-md-3">    
+                <div class="widget categories">
+                        <h3>Recent <code><%= @product.name %></code> Document</h3>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="blog_archieve">
+                                    <% @lasted_documents.each do |document|  %>
+                                     <li><%= link_to document.name, product_document_path(document.product, document)%></li>
+                                    <% end %>
+                                </ul>
+                            </div>
+                        </div>                     
+                    </div>
+                    <% if can? :manage , edit_product_document_path %>
+                    <div class="widget search">
+                        <form role="form">
+                            <%= link_to 'Edit', edit_product_document_path(@document.product, @document),class: "btn btn-primary btn-block" %>
+                        </form>
+                    </div>
+                    <% end %>
+            </aside>
         </div>
     </div>
 </section>
+
+<footer id="footer" class="midnight-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                &copy; 2015&nbsp;&nbsp;&nbsp;<%= link_to 'Cronus Team', root_path , :title => "Cronus Team @ AIS" %>.&nbsp;&nbsp;All Rights Reserved.
+            </div>
+            <div class="col-sm-6">
+                <ul class="pull-right">
+                    <li>
+                        <%= link_to "Home", root_path %>
+                    </li>
+                    <li>
+                        <%= link_to "Download", download_path %>
+                    </li>
+                    <li>
+                        <%= link_to 'Announcements', announcements_path, :class => 'navbar-link' %>
+                    </li>
+                    <li>
+                        <%= link_to 'Events', events_path, :class => 'navbar-link' %>                        
+                    </li>
+                    <li>
+                        <%= link_to 'Wikis', wikis_path, :class => 'navbar-link' %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer> 

@@ -11,7 +11,7 @@ class Package < ActiveRecord::Base
   validates_attachment_size :package, :less_than => 100.megabytes 
 
   has_attached_file :release_note, :use_timestamp => false
-  validates_attachment_content_type :release_note, :content_type => [/\Aimage\/.*\Z/, /\Avideo\/.*\Z/, /\Aaudio\/.*\Z/, /\Aapplication\/.*\Z/]
+  validates_attachment_content_type :release_note, :content_type => ["application/pdf"], :message => ', Only PDF files are allowed.'
   # validates_attachment_presence :documnet
   validates_attachment_size :release_note, :less_than => 100.megabytes
 
@@ -20,6 +20,8 @@ class Package < ActiveRecord::Base
 
   scope :is_public, -> { where(:public => 1) }
   scope :latest_package, -> { where(:latest => 1,:is_public => 1).order(:updated_at => :desc).first }
+  scope :last_updated, -> { limit(10).order(:updated_at => :desc) } 
+  
   # scope :current_package, ->(product_id){ where(:product_id => product_id).where(:release_package => true).order(:created_at => :desc).limit(1).first } 
   def self.search(search)
     if search

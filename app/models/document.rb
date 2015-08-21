@@ -15,7 +15,10 @@ class Document < ActiveRecord::Base
     scope :is_public, -> { where(:is_public => 1) }
     
     scope :with_prodcut, -> (product_id){ where(:product_id => product_id).is_public }
+    scope :last_document, -> (id){ where.not(:id => id).limit(5).order(:created_at => :desc).is_public }
     # scope :search, -> (search){ |search| ? where(['lower(name) LIKE ?', "%#{search.strip.downcase}%"]) : all }
+    scope :last_updated, -> { limit(10).order(:updated_at => :desc) } 
+    
     def self.search(search)
         if search
             where(['lower(name) LIKE ?', "%#{search.strip.downcase}%"])

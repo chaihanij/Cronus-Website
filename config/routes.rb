@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
-  resources :documents
+  # resources :documents
   resources :contacts
-  resources :packages
+  # resources :packages
   resources :operating_systems
-  resources :products
+
+  resources :products do
+    get '/download', to: 'products#download'
+    get '/document', to: 'products#document'
+    resources :packages
+    resources :documents
+  end
   resources :image_json
   
   # ------------------
@@ -27,6 +33,7 @@ Rails.application.routes.draw do
   get '/static_event' ,  to:'static_pages#event'
   get '/static_wiki' ,  to:'static_pages#wiki'
   get '/static_document', to: 'static_pages#document'
+  get '/unauthorized', to: 'static_pages#unauthorized_page'
   
   # API V1
   namespace :api, defaults: {:format=> 'json'} do
@@ -44,6 +51,8 @@ Rails.application.routes.draw do
     end
   end
   # -------------
+
+
 
 
   # namespace :admin do

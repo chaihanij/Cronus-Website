@@ -1,0 +1,78 @@
+<section id="error" class="container text-center">
+     <h1>404, Page not found</h1>
+     <p>The Page you are looking for doesn't exist or an other error occurred.</p>
+     <%= link_to "GO BACK TO THE HOMEPAGE", root_url, :class => 'btn btn-primary' %>
+</section>
+<section id="bottom">
+    <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+        <div class="row">            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Announcements</h3>
+                    <ul>
+                    <% @announcement_limit_five.each do |announcement| %>
+                        <li><%= link_to announcement.title , announcement %></li>   
+                    <% end %>
+                    </ul>
+                </div>    
+            </div>            
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Events</h3>
+                    <ul>
+                        <% @events_limit_five.each do |event| %>
+                        <li><%= link_to event.title , event %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Products</h3>
+                    <ul>
+                        <% @products.each do |product| %>
+                            <li><%= link_to product.name , product %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Wikis</h3>
+                    <ul>
+                        <% @wikis.each do |wiki| %>
+                            <li><%= link_to wiki.title , wiki %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+        </div>
+    </div>
+</section>
+<footer id="footer" class="midnight-blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                &copy; 2015&nbsp;&nbsp;&nbsp;<%= link_to 'Cronus Team', root_path , :title => "Cronus Team @ AIS" %>.&nbsp;&nbsp;All Rights Reserved.
+            </div>
+            <div class="col-sm-6">
+                <ul class="pull-right">
+                    <li>
+                        <%= link_to "Home", root_path %>
+                    </li>
+                    <li>
+                        <%= link_to "Download", download_path %>
+                    </li>
+                    <li>
+                        <%= link_to 'Announcements', announcements_path, :class => 'navbar-link' %>
+                    </li>
+                    <li>
+                        <%= link_to 'Events', events_path, :class => 'navbar-link' %>                        
+                    </li>
+                    <li>
+                        <%= link_to 'Wikis', wikis_path, :class => 'navbar-link' %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer> 

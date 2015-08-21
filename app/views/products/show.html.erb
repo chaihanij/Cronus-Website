@@ -1,113 +1,80 @@
 <section id="contact-info" class="container">
-    <div class="center">                
-        <h2><%= @product.name %></h2>
+    <div class="center" style="padding-bottom: 30px;">                
+        <h2>Manage the <%= @product.name %> product</h2>
         <p class="lead">&nbsp;&nbsp;&nbsp;<%= @product.description %></p>
     </div>
     <div class="row">
-    	<div class="col-md-12">
-    		<h2 id="transitions">Packages<small></small></h2>
-    		<p>&nbsp;&nbsp;&nbsp;&nbsp;<b><%= @product.name %></b>'s most current release is product 
-			<code>
-                <% if (@product.lastest_package_release != nil ) %>
-                    <%= link_to  @product.lastest_package_release.version, @product.lastest_package_release %>
-                <% end %>
-            </code>
-
-			</p>
-            <% if (@product.lastest_package_release != nil ) %>
-			<p>
-			    <a href="<%= @lastest_package_release.package %>" class="btn btn-primary" >Get the latest!</a>
-               	<% if @lastest_package_release.release_package %>
-                       <span class="label label-success">Release</span>&nbsp;
-                <% end %>
-                <% if @lastest_package_release.emergency_package %>
-                    <span class="label label-warning">Emergency</span>&nbsp;
-                <% end %>
-                <I>Size&nbsp;(<b><%= @lastest_package_release.package_file_size %></b>)</I>,&nbsp;
-                <I>Checksum&nbsp;(<b><%= @lastest_package_release.checksum %></b>)</I>
-            </p>
-            <i>Release Dates <a><%= @lastest_package_release.release_date.to_formatted_s(:rfc822) %></a> </i>
-            
-            <% if (@lastest_package_release.release_note_file_name != nil) then %>
-                <h5>Release Notes for 
-                    <a href="<%= @product.lastest_package_release.release_note %>"><%= @lastest_package_release.name %></a>
-                </h5>
-            <% end %>
-            <% end %>
-    	</div>
-    </div>
-    <div class="row">
-    	<div class="col-md-12">
-    		<h4 class="page-header">Latest <%= @product.name %> Release</h4>
-            <div class="panel panel-default">
-                <div class="table-responsive">
-        		  	<table id="prodcut_show" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th style="text-align: left;">Name</th>
-                                <th style="text-align: left;">Release Dates</th>
-                                <th style="text-align: left;">Size</th>
-                                <th style="text-align: left;">Checksum</th>
-                                <th style="text-align: left;">Status</th>
-                                <% if can? :manage, @package_in_product %>
-                                    <th>Public</th>
-                                    <th> </th>
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item"><%= link_to "Manage Packages", product_packages_path(@product) %></li>
+                <li class="list-group-item"><%= link_to "Manage Documents", product_documents_path(@product) %></li>
+                <li class="list-group-item"><%= link_to "New Packages", new_product_package_path(@product) %></li>
+                <li class="list-group-item"><%= link_to "New Documents", new_product_package_path(@product) %></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Lasted packages update</h3>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Time update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @last_update_packages.each_with_index do |package,index| %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= link_to package.name, [package.product, package] %></td>
+                                    <td><%= package.updated_at.to_formatted_s(:db)  %></td>
+                                </tr>
                                 <% end %>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% @package_in_product.each do |package| %>
-                            <tr>
-                                <td style="text-align: left;">
-                                    <%= link_to package.name, package %> 
-                                </td>
-                                <td style="text-align: left;">
-                                    <% if (package.release_date != nil) %>
-                                        <b><%= package.release_date.to_formatted_s(:rfc822)  %></b>
-                                    <% end %>
-                                </td>
-                                <td style="text-align: left;"><%= package.package_file_size  %></td>
-                                <td style="text-align: left;"><%= package.checksum  %></td>
-                                <td style="text-align: left;">
-                                    <% if  package.release_package %>
-                                        <span class="label label-success">Release</span>&nbsp;
-                                    <% end %>    
-                                    <% if package.emergency_package %>
-                                        &nbsp;<span class="label label-warning">Emergency </span>&nbsp;
-                                    <% end %>
-                                    <% if package.notwork_package %>
-                                        &nbsp;<span class="label label-danger">Broken</span>&nbsp;
-                                    <% end %>
-                                </td>
-                                <% if can? :manage, package %>
-                                    <td align="center">
-                                      <% if package.is_public then %>
-                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                      <% else %>
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                      <% end %>
-                                    </td>
+                            </tbody>
+                        </table>
+                        <div class="panel-footer">
+                            <div class="center">
+                                <%= link_to "View all", product_packages_path(@product), class:"btn btn-primary" %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Lasted documents update</h3>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Time update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @last_update_documents.each_with_index do |document,index| %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= link_to document.name, [document.product, document] %></td>
+                                    <td><%= document.updated_at.to_formatted_s(:db)  %></td>
+                                </tr>
                                 <% end %>
-                                <td align="center">
-                                    <% if can? :manage, package %>
-                                    <%= link_to package, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
-                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
-                                    <% end %>   
-                            
-                                    <%= link_to edit_package_path(package), class: "btn btn-warning btn-xs" do %>
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
-                                    <% end %>   
-                                    <% end %>
-                                    <%= link_to package, class: "btn btn-success btn-xs"  do %>
-                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
-                                    <% end %>   
-                                </td>
-                            </tr>
-                            <% end %>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                        <div class="panel-footer">
+                            <div class="center">
+                                <%= link_to "View all", product_documents_path(@product), class:"btn btn-primary" %>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-    	</div>
+        </div>
     </div>
 </section>
