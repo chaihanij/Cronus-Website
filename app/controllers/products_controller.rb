@@ -75,8 +75,11 @@ class ProductsController < ApplicationController
     @lastest_package_release = @product.lastest_package_release
   end
 
+  # GET /products/doc/1
   def document
     @product = Product.friendly.find(params[:product_id])
+    @documents = @product.documents.is_public.order(:name => :asc).search(params[:search])
+    @lasted_documents = @product.documents.recent_for_documents
   end
 
   # DELETE /products/1

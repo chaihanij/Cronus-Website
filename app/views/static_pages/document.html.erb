@@ -1,13 +1,68 @@
 <section id="recent-works">
     <div class="container">
-        <div class="center wow fadeInDown">
-            <h2>Documnent</h2>
-            <p class="lead">Documnent Center. Select the product you wish to document.</p>
+        <div class="center wow fadeInDown" style="padding-bottom: 1px;">
+            <h2>Document</h2>
+            <p class="lead">Document Center. Select the product and document</p>
         </div>        
         <div class="row">
-            <div class="col-md-8">
-                
+            <div class="col-md-12">
+                <% @products.each do |product| %>
+                <div class="row" >
+                    <div class="page-header">
+                        <h4><%= link_to product.name , product_doc_path(product) %></h4>
+                    </div>
+                    <% if product.documents.is_public then %>
+                        <%  product.documents.is_public.each do |document| %>
+                        <div class="col-md-4">
+                            <i class="fa fa-file-pdf-o fa-2x"></i>&nbsp;&nbsp;&nbsp;<%= link_to document.name,  product_document_path(document.product, document), :style => "text-decoration: underline;"%>
+                        </div>
+                        <% end %>
+                    <% end %>
+                </div>
+                <% end %>
             </div>
         </div>
     </div>
 </section>
+<footer id="footer" class="midnight-blue footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                &copy; 2015&nbsp;&nbsp;&nbsp;<%= link_to 'Cronus Team', root_path , :title => "Cronus Team @ AIS" %>.&nbsp;&nbsp;All Rights Reserved.
+            </div>
+            <div class="col-sm-6">
+                <ul class="pull-right">
+                    <li>
+                        <%= link_to "Home", root_path %>
+                    </li>
+                    <li>
+                        <%= link_to "Download", download_path %>
+                    </li>
+                    <li>
+                        <%= link_to "Document", download_path %>
+                    </li>
+                    <li>
+                        <%= link_to 'Announcements', announcements_path, :class => 'navbar-link' %>
+                    </li>
+                    <li>
+                        <%= link_to 'Events', events_path, :class => 'navbar-link' %>                        
+                    </li>
+                    <li>
+                        <%= link_to 'Wikis', wikis_path, :class => 'navbar-link' %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<style type="text/css">
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+</style>

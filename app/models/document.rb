@@ -18,7 +18,10 @@ class Document < ActiveRecord::Base
     scope :last_document, -> (id){ where.not(:id => id).limit(5).order(:created_at => :desc).is_public }
     # scope :search, -> (search){ |search| ? where(['lower(name) LIKE ?', "%#{search.strip.downcase}%"]) : all }
     scope :last_updated, -> { limit(10).order(:updated_at => :desc) } 
-    
+    # recent for documents
+    scope :recent_for_documents, -> { limit(5).order(:created_at => :desc).is_public }
+
+
     def self.search(search)
         if search
             where(['lower(name) LIKE ?', "%#{search.strip.downcase}%"])

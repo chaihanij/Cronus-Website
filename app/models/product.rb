@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
 
 	has_many :packages
     has_many :documents
+    
     scope :limit_five, ->(){ limit(5).order(created_at: :desc) }
     scope :is_public, -> { where(:public => 1) }
 
@@ -17,9 +18,7 @@ class Product < ActiveRecord::Base
             all
         end
     end
-
     
-
     # find the lasted package
     def lastest_package_release
     	self.packages.where(:latest => 1).order(:release_date => :desc).first

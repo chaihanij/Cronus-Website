@@ -1,1 +1,36 @@
-<h1>document.html.erb</h1>
+<section id="contact-info" class="container">
+    <div class="center wow fadeInDown"> <!-- style="padding-bottom:30px" -->
+        <h2>Documents for the <%= @product.name %> product</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row widget categories">
+            <h3>Document List</h3>
+                <%  @documents.each do |document| %>
+                    <div class="col-md-4">
+                        <i class="fa fa-file-pdf-o fa-2x"></i>&nbsp;&nbsp;&nbsp;<%= link_to document.name,  product_document_path(document.product, document), :style => "text-decoration: underline;"%>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+        <aside class="col-md-4">
+            <div class="widget search">
+                <%= form_tag product_doc_path, :method => 'get' do %>
+                    <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search Here"%>    
+                <% end %>
+            </div>
+            <div class="widget categories">
+                <h3>Recent Documnets for <%= @product.name %> </h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="blog_archieve">
+                            <% @lasted_documents.each do |document|  %>
+                                <li><%= link_to document.name, product_document_path(document.product, document)%></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
