@@ -43,7 +43,7 @@ class VersionsController < ApplicationController
   # POST /versions.json
   def create
     @version = @product.versions.new(version_params)
-    if !@version.latest
+    if @version.latest == true
       logger.debug " ======  version latest  #{@version.latest}"
       @product.versions.set_latest_all_false
     end
@@ -61,7 +61,7 @@ class VersionsController < ApplicationController
   # PATCH/PUT /versions/1
   # PATCH/PUT /versions/1.json
   def update
-    if !@version.latest 
+    if @version.latest == true
       logger.debug "========= version latest  #{@version.latest}"
       @product.versions.set_latest_all_false
     end
