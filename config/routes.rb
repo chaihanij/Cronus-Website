@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  # resources :package_files
+  # resources :versions
   # resources :documents
-  resources :contacts
   # resources :packages
+
+  resources :contacts
   resources :operating_systems
 
   resources :products do
@@ -9,7 +12,12 @@ Rails.application.routes.draw do
     get '/doc', to: 'products#document'
     resources :packages
     resources :documents
+    resources :versions do
+      get '/download', to: 'versions#download'
+      resources :package_files
+    end
   end
+  
   resources :image_json
   
   # ------------------

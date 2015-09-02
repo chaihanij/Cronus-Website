@@ -1,4 +1,5 @@
 class PackagesController < ApplicationController
+  
   helper_method :sort_column, :sort_direction
   
   before_action :set_product
@@ -95,7 +96,7 @@ class PackagesController < ApplicationController
     # Get Product that has the Product
     def set_product
       @product = Product.friendly.find(params[:product_id])
-      logger.debug "product #{@product.id}"
+      # logger.debug "product #{@product.id}"
     end
 
     def sort_column

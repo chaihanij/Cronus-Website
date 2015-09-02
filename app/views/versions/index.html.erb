@@ -1,0 +1,94 @@
+<section id="blog" class="container">
+    <div class="center">
+        <h2>Manege version the <code><%= @product.name %></code> product</h2>
+    </div>
+    <div class="blog">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">List version</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table  class="table table-striped table-hover pretty">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th><%= sortable "id", "ID" %></th>
+                                    <th><%= sortable "name", "Name" %></th>
+                                    <th><%= sortable "updated_at", "Time Update" %></th>
+                                    <th><%= sortable "latest", "Latest" %></th>
+                                    <th>Total</th>
+                                    <th><%= sortable "is_public", "Public" %></th>
+                                    <th colspan="2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @versions.each_with_index do |version, index| %>
+                                    <tr>
+                                        <td><%= index+1 %></td>
+                                        <td><%= version.id %></td>
+                                        <td><%= link_to version.name, [version.product, version] %></td>
+                                        <td>
+                                            <%= version.updated_at.to_formatted_s(:db)  %>
+                                        </td>
+                                        <td>
+                                            <% if version.latest then %>
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <% else %>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            <% end %>
+                                        </td>
+                                        <td>
+                                            <%= version.package_files.count%>
+                                        </td>
+                                        <td>
+                                            <% if version.is_public then %>
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <% else %>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            <% end %>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <%= link_to [version.product, version], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                                <% end %>
+                                            
+                                                <%= link_to edit_product_version_path(version.product, version), class: "btn btn-warning btn-xs" do %>
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                                <% end %>   
+                                        
+                                                <%= link_to [version.product, version], class: "btn btn-success btn-xs"  do %>
+                                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                                <% end %>  
+
+                                                <%= link_to new_product_version_package_file_path(:product_id => version.product.id,:version_id => version), class: "btn btn-info btn-xs"  do %>
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Package
+                                            <% end %>  
+                                            </p>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="text-center">
+                  <%= paginate @versions %>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <%= form_tag product_versions_path, :method => 'get' do %>
+                    <div class="form-group">
+                        <%= text_field_tag :search, params[:search] , class: "form-control search_box", id:"search", placeholder: "Search"%>    
+                     </div>
+                <% end %>
+                <div class="widget search">
+                    <%= link_to "New Version",  new_product_version_path, class: "btn btn-primary btn-block" %>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>

@@ -24,7 +24,51 @@
         </div>
     </div>
 </section>
-<footer id="footer" class="midnight-blue footer">
+<section id="bottom">
+    <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+        <div class="row">            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Announcements</h3>
+                    <ul>
+                    <% Announcement.limit_five.each do |announcement| %>
+                        <li><%= link_to announcement.title , announcement %></li>   
+                    <% end %>
+                    </ul>
+                </div>    
+            </div>            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Events</h3>
+                    <ul>
+                        <% Event.limit_five.each do |event| %>
+                        <li><%= link_to event.title , event %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Products</h3>
+                    <ul>
+                        <% Product.limit_five.each do |product| %>
+                            <li><%= link_to product.name , product %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="widget">
+                    <h3>Wikis</h3>
+                    <ul>
+                        <% Wiki.limit_five.each do |wiki| %>
+                            <li><%= link_to wiki.title , wiki %></li>
+                        <% end %>
+                    </ul>
+                </div>    
+            </div>
+        </div>
+    </div>
+</section>
+<footer id="footer" class="midnight-blue">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
@@ -39,9 +83,6 @@
                         <%= link_to "Download", download_path %>
                     </li>
                     <li>
-                        <%= link_to "Document", download_path %>
-                    </li>
-                    <li>
                         <%= link_to 'Announcements', announcements_path, :class => 'navbar-link' %>
                     </li>
                     <li>
@@ -54,8 +95,14 @@
             </div>
         </div>
     </div>
-</footer>
+</footer> 
 <style type="text/css">
+.item {
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background-color: #eee;
+  padding: 10px 10px 10px 30px;
+}
 html {
   position: relative;
   min-height: 100%;

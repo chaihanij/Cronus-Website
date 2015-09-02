@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    authorize! :manage, @packages , :message => "Access denied."
+    authorize! :manage, @product , :message => "Access denied."
     if params[:sort] == nil then
         @products = Product.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(50)
     else
@@ -17,11 +17,10 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    authorize! :manage, @packages , :message => "Access denied."
-    @last_update_documents = @product.documents.last_updated
-    @last_update_packages = @product.packages.last_updated
-    # @package_in_product = @product.packages.where(:is_public => 1).order(:release_date => :desc)
-    # @lastest_package_release = @product.lastest_package_release
+    authorize! :manage, @product , :message => "Access denied."
+    @latest_update_version = @product.versions.last_updated
+    @latest_update_documents = @product.documents.last_updated
+    @latest_update_packages = @product.package_files.last_updated
   end
 
   # GET /products/new
@@ -71,8 +70,14 @@ class ProductsController < ApplicationController
   def download
     # logger.debug "product #{@product.id}"
     @product = Product.friendly.find(params[:product_id])
-    @package_in_product = @product.packages.where(:is_public => 1).order(:release_date => :desc)
-    @lastest_package_release = @product.lastest_package_release
+    @latest_version = @product.versions.latest_version.first
+    # logger.debug "========================================="
+    # logger.debug "#{@latest_version}"
+    # logger.debug "========================================="
+    @list_version= @product.versions.is_public
+    if @latest_version then
+      @list_version = @product.versions.with_out_latest(@latest_version.id).list_static_download
+    end
   end
 
   # GET /products/doc/1

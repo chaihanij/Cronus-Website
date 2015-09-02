@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  package: 
+  build_date: 2015-08-26
+  release_date: 2015-08-26
+  version_id: 
+  operating_system_id: 
+  is_public: false
+
+two:
+  package: 
+  build_date: 2015-08-26
+  release_date: 2015-08-26
+  version_id: 
+  operating_system_id: 
+  is_public: false

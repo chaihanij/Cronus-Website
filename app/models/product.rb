@@ -7,6 +7,8 @@ class Product < ActiveRecord::Base
 
 	has_many :packages
     has_many :documents
+    has_many :versions
+    has_many :package_files
     
     scope :limit_five, ->(){ limit(5).order(created_at: :desc) }
     scope :is_public, -> { where(:public => 1) }

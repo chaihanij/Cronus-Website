@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817075422) do
+ActiveRecord::Schema.define(version: 20150826101435) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -92,6 +92,27 @@ ActiveRecord::Schema.define(version: 20150817075422) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "package_files", force: :cascade do |t|
+    t.string   "package_file_name",    limit: 255
+    t.string   "package_content_type", limit: 255
+    t.integer  "package_file_size",    limit: 4
+    t.datetime "package_updated_at"
+    t.date     "build_date"
+    t.date     "release_date"
+    t.integer  "version_id",           limit: 4
+    t.integer  "operating_system_id",  limit: 4
+    t.boolean  "is_public",            limit: 1
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "product_id",           limit: 4
+    t.string   "package_fingerprint",  limit: 255
+    t.string   "checksum",             limit: 255
+    t.string   "slug",                 limit: 255
+  end
+
+  add_index "package_files", ["operating_system_id"], name: "index_package_files_on_operating_system_id", using: :btree
+  add_index "package_files", ["version_id"], name: "index_package_files_on_version_id", using: :btree
+
   create_table "packages", force: :cascade do |t|
     t.integer  "product_id",                limit: 4
     t.integer  "operating_system_id",       limit: 4
@@ -157,6 +178,27 @@ ActiveRecord::Schema.define(version: 20150817075422) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "versions", force: :cascade do |t|
+    t.string   "name",                      limit: 255
+    t.text     "description",               limit: 65535
+    t.boolean  "is_public",                 limit: 1
+    t.integer  "product_id",                limit: 4
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "latest",                    limit: 1
+    t.string   "slug",                      limit: 255
+    t.boolean  "release_version",           limit: 1
+    t.boolean  "emergency_version",         limit: 1
+    t.boolean  "broken_version",            limit: 1
+    t.string   "release_note_file_name",    limit: 255
+    t.string   "release_note_content_type", limit: 255
+    t.integer  "release_note_file_size",    limit: 4
+    t.datetime "release_note_updated_at"
+    t.string   "release_note_fingerprint",  limit: 255
+  end
+
+  add_index "versions", ["product_id"], name: "index_versions_on_product_id", using: :btree
+
   create_table "wikis", force: :cascade do |t|
     t.string   "title",          limit: 255
     t.text     "body",           limit: 4294967295
@@ -178,6 +220,9 @@ ActiveRecord::Schema.define(version: 20150817075422) do
   add_index "wikis", ["rgt"], name: "index_wikis_on_rgt", using: :btree
   add_index "wikis", ["title"], name: "index_wikis_on_title", using: :btree
 
+  add_foreign_key "package_files", "operating_systems"
+  add_foreign_key "package_files", "versions"
   add_foreign_key "packages", "operating_systems"
   add_foreign_key "packages", "products"
+  add_foreign_key "versions", "products"
 end
