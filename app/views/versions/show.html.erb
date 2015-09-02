@@ -1,0 +1,133 @@
+<section id="blog" class="container">
+    <div class="center">
+        <h2><code><%= @version.product.name %></code> version <code><%= @version.name %></code></h2>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">List Packages</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Build date</th>
+                                <th>Release date</th>
+                                <th>Version</th>
+                                <th>Public</th>
+                                <th colspan="3"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @version.package_files.each_with_index do |package_file, index| %>
+                            <tr>
+                                <th><%= index+1 %></th>
+                                <td>
+                                    <%= link_to package_file.package_file_name,  [package_file.version.product, package_file.version ,package_file]%>
+                                </td>
+                                <td>
+                                    <% if (package_file.build_date != nil) %>
+                                        <%= package_file.build_date.to_formatted_s(:db)  %>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <% if (package_file.release_date != nil) %>
+                                        <%= package_file.release_date.to_formatted_s(:db)  %>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <% if (package_file.version != nil) %>
+                                        <%= package_file.version.name %>
+                                    <% end %>
+                                </td>
+                                <td align="center">
+                                    <% if package_file.is_public then %>
+                                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    <% else %>
+                                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <% end %>
+                                </td>
+                                <td>
+                                    <%= link_to [package_file.version.product, package_file.version ,package_file], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+                                    <% end %>
+                                </td>   
+                                <td>
+                                    <%= link_to edit_product_version_package_file_path(package_file.version.product, package_file.version, package_file), class: "btn btn-warning btn-xs" do %>
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+                                    <% end %>   
+                                </td>
+                                <td>
+                                    <%= link_to [package_file.version.product, package_file.version ,package_file], class: "btn btn-success btn-xs"  do %>
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
+                                    <% end %>   
+                                </td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Detail</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Lasted version</b></label>
+                            <div class="col-sm-8" >
+                                <label class="control-label">
+                                     <code><%= @version.latest %></code>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Status</b></label>
+                            <div class="col-sm-8">
+                                <% if  @version.release_version %>
+                                  <span class="label label-success">Release</span>
+                                <% end %>
+                                <% if @version.emergency_version %>
+                                  <span class="label label-warning">Emergency</span>
+                                <% end %>
+                                <% if @version.broken_version %>
+                                    <span class="label label-danger">Broken</span>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Release note</b></label>
+                            <div class="col-sm-8">
+                                <label class="control-label">
+                                    <%= link_to @version.release_note_file_name, @version.release_note.url() %>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Description</b></label>
+                            <div class="col-sm-9">
+                                <% if (@version.description != nil) then %>
+                                <div class="jumbotron">
+                                    <%= @version.description.html_safe %>
+                                </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+                <li class="list-group-item"><%= link_to "Manage Package", product_version_package_files_path(@version.product, @version) %></li>
+                <li class="list-group-item"><%= link_to "New package", new_product_version_package_file_path(@version.product, @version) %></li>
+                <li class="list-group-item"><%= link_to "New Operating system", new_operating_system_path %></li>
+                <li class="list-group-item"><%= link_to "Edit version", edit_product_version_path(@version.product, @version) %></li>
+            </ul>
+        </div>
+    </div>
+</section>

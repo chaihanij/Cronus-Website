@@ -8,7 +8,7 @@ class StaticPagesController < ApplicationController
       @products = Product.limit_five
     end
     def download
-      @products = Product.is_public
+      @products = Product.is_public.order(:name => :asc)
     end   
     def contact
       @contact = Contact.new
@@ -37,6 +37,7 @@ class StaticPagesController < ApplicationController
     end
 
     def document
+      @products = Product.is_public.order(:name => :asc)
     end
     
     def unauthorized_page

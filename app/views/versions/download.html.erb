@@ -1,0 +1,107 @@
+<section id="blog" class="container">
+    <div class="center">
+        <h2>Download <code><%= @version.product.name %></code> version <code><%= @version.name %></code></h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Product</b></label>
+                            <div class="col-sm-8">
+                                <label class="control-label">
+                                    <%= @product.name %>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Version</b></label>
+                            <div class="col-sm-8">
+                                <label class="control-label">
+                                    <%= @version.name %>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Status</b></label>
+                            <div class="col-sm-8">
+                                <% if  @version.release_version %>
+                                  <span class="label label-limegreen">Release</span>
+                                <% end %>
+                                <% if @version.emergency_version %>
+                                  <span class="label label-greenyellow">Emergency</span>
+                                <% end %>
+                                <% if @version.broken_version %>
+                                    <span class="label label-danger">Broken</span>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Release note</b></label>
+                            <div class="col-sm-8">
+                                <label class="control-label">
+                                    <%= link_to @version.release_note_file_name, @version.release_note.url() %>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Packges</b></label>
+                            <div class="col-sm-8">                                    
+                                <% @version.package_files.is_public.each_with_index do |package_file, index| %>
+                                <div class="jumbotron" style="padding-left: 20px;padding-right: 20px;padding-top: 20px;padding-bottom: 20px;">
+                                    <dl class="dl-horizontal">
+                                        <dt>
+                                            Name
+                                        </dt>
+                                        <dd>
+                                            <%= link_to package_file.package_file_name,  [package_file.version.product, package_file.version ,package_file] %>
+                                        </dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>OS</dt>
+                                        <dd><%= package_file.operating_system.name %>&nbsp;&nbsp;&nbsp;<%= package_file.operating_system.version %></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Build date</dt>
+                                        <dd><%= package_file.build_date %></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Release date</dt>
+                                        <dd><%= package_file.release_date %></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Checksum</dt>
+                                        <dd><%= package_file.checksum %></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt>Size</dt>
+                                        <dd><%= package_file.package_file_size %></dd>
+                                    </dl>
+                                    <dl class="dl-horizontal">
+                                        <dt></dt>
+                                        <dd>
+                                            <%= link_to "Download " + package_file.package_file_name, package_file.package.url, class:"btn btn-primary" %>
+                                        </dd>
+                                    </dl>
+                                    
+                                </div>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Description</b></label>
+                            <div class="col-sm-9">
+                                <% if (@version.description != nil) then %>
+                                <div class="jumbotron">
+                                    <%= @version.description.html_safe %>
+                                </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -45,16 +45,16 @@ body > div > section {
 #inner-message {
     margin: 0 auto;
 }
-
+/*
 .table {
-  font-size:8pt;
+  font-size:10pt;
 }
 th {
   text-align: center;
 }
 td {
   text-align: center;
-}
+} */
 #prodcut_show, table {
   font-size:10pt;
 }
@@ -193,6 +193,13 @@ h1[id] {
 
 .pretty th .desc {
   background-image: url(/images/down_arrow.gif);
+}
+
+.label-greenyellow {
+  background-color: #ADFF2F;
+}
+.label-limegreen {
+  background-color: #32CD32;
 }
 
 
