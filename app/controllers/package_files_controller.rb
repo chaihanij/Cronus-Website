@@ -19,7 +19,10 @@ class PackageFilesController < ApplicationController
 
   # GET /package_files/new
   def new
+    @versions = @product.versions
     @package_file = @version.package_files.new
+    @package_file.product_id=@product.id
+    @package_file.version_id=@version.id
     if params[:product_id] then
       @package_file.product_id=params[:product_id]
     end

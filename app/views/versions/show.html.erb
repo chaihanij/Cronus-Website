@@ -124,7 +124,7 @@
         <div class="col-md-3">
             <ul class="list-group">
                 <li class="list-group-item"><%= link_to "Manage Package", product_version_package_files_path(@version.product, @version) %></li>
-                <li class="list-group-item"><%= link_to "New package", new_product_version_package_file_path(@version.product, @version) %></li>
+                <li class="list-group-item"><%= link_to "New package", new_product_version_package_file_path(:product_id => @version.product.id,:version_id => @version.id) %></li>
                 <li class="list-group-item"><%= link_to "New Operating system", new_operating_system_path %></li>
                 <li class="list-group-item"><%= link_to "Edit version", edit_product_version_path(@version.product, @version) %></li>
             </ul>

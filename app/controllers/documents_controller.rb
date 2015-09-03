@@ -65,7 +65,7 @@ class DocumentsController < ApplicationController
     authorize! :manage, @document , :message => "Access denied."
     @document.destroy
     respond_to do |format|
-      format.html { redirect_to prodcut_documents_url, notice: 'Document was successfully destroyed.' }
+      format.html { redirect_to prodcut_documents_path(@document.product, @document), notice: 'Document was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

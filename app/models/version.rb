@@ -20,7 +20,7 @@ class Version < ActiveRecord::Base
   scope :last_updated, -> { limit(10).order(:updated_at => :desc) } 
   scope :set_latest_all_false, -> { update_all(:latest => false) }
   scope :with_out_latest, -> (id){ where.not(:id => id) }
-  scope :list_static_download, -> { where(:is_public => 1,:broken_version => false)}  
+  scope :list_static_download, -> { where(:is_public => 1,:broken_version => false).order(:name => :desc) }  
 
 
   def self.search(search)
