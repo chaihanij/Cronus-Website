@@ -89,11 +89,13 @@ class ProductsController < ApplicationController
     else
       @list_version = @product.versions
                              .is_public
+                             .where(:broken_version => false) 
                              .order(params[:column] + ' ' + params[:order])
       if @latest_version then
         @list_version = @product.versions
+                                .where(:broken_version => false)
+                                .is_public
                                 .with_out_latest(@latest_version.id)
-                                .list_static_download
                                 .order(params[:column] + ' ' + params[:order])
       end
     end

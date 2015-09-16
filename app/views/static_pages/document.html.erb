@@ -50,7 +50,7 @@
                     <h3>Products</h3>
                     <ul>
                         <% Product.limit_five.each do |product| %>
-                            <li><%= link_to product.name , product %></li>
+                            <li><%= link_to product.name , product_download_path(product) %></li>
                         <% end %>
                     </ul>
                 </div>    
