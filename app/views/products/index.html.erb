@@ -1,4 +1,4 @@
-<section class="container">
+<section class="container" style="max-width: 1024px;">
     <div class="center">
         <h2>Manage products</h2>
         <p class="lead">Manage prodcut in system platform development team.</p>
@@ -6,7 +6,10 @@
     <div class="blog">
         <div class="row">
             <div class="col-md-9">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">List products</h3>
+                    </div>
                     <div class="table-responsive">
                       <table class="table table-hover pretty">
                         <thead>
@@ -14,7 +17,6 @@
                             <th>No.</th>
                             <th><%= sortable "id" %></th>
                             <th><%= sortable "name" %></th>
-                            <th><%= sortable "created_at", "Time create" %></th>
                             <th><%= sortable "updated_at", "Time update" %></th>
                             <th><%= sortable "public" %></th>
                             <th colspan="3"></th>
@@ -28,12 +30,8 @@
                                     <%= product.id %>
                                 </td>
                                 <td>
-                                    <%= product.name %>
+                                    <%= link_to product.name , product %>
                                 </td>
-                                <!-- <td>
-                                    <%= truncate(product.description , length: 50) { link_to "more", product } %>
-                                </td> -->
-                                <td><%= product.created_at.to_formatted_s(:db)  %></td>
                                 <td><%= product.updated_at.to_formatted_s(:db)  %></td>
                                 <td align="center">
                                     <% if product.public then %>

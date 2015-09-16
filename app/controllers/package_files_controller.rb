@@ -90,7 +90,9 @@ class PackageFilesController < ApplicationController
                                            :operating_system_id,
                                            :is_public,
                                            :product_id,
-                                           :checksum)
+                                           :checksum,
+                                           :emergency_package,
+                                           :description)
     end
 
     # Get Product that has the Product

@@ -1,4 +1,4 @@
-<section id="blog" class="container">
+<section id="blog" class="container" style="max-width: 1024px;">
     <div class="center">
         <h2>Manage announcements</h2>
         <p class="lead">Manage announcement in system platform development team.</p>
@@ -6,7 +6,10 @@
     <div class="blog">
         <div class="row">
             <div class="col-md-9">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">List announcements</h3>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover pretty">
                             <thead>
@@ -14,7 +17,6 @@
                                     <th><a>No.</a></th>
                                     <th><%= sortable "id" %></th>
                                     <th><%= sortable "title" %></th>
-                                    <th><%= sortable "created_at", "Time create" %></th>
                                     <th><%= sortable "updated_at", "Time update" %></th>
                                     <th><%= sortable "is_public",  "Public" %></th>
                                     <th colspan="3"></th>
@@ -26,7 +28,6 @@
                                     <td><%= index+1 %></td>
                                     <td><%= announcement.id %></td>
                                     <td><%= announcement.title %></td>
-                                    <td><%= announcement.created_at.to_formatted_s(:db)  %></td>
                                     <td><%= announcement.updated_at.to_formatted_s(:db)  %></td>
                                     <td>
                                     <% if announcement.is_public then %>
@@ -35,15 +36,17 @@
                                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     <% end %>
                                     </td>
-                                    <td colspan="3">
+                                    <td>
                                         <%= link_to announcement, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-xs" do %>
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
                                         <% end %>   
-                                
+                                    </td>
+                                    <td>
                                         <%= link_to edit_announcement_path(announcement), class: "btn btn-warning btn-xs" do %>
                                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
                                         <% end %>   
-                               
+                                    </td>
+                                    <td>
                                         <%= link_to announcement, class: "btn btn-success btn-xs"  do %>
                                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View
                                         <% end %>

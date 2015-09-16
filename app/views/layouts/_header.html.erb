@@ -1,6 +1,6 @@
 <header id="header" >
     <nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
-        <div class="container">
+        <div class="container"  style="max-width: 1024px;">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -12,14 +12,14 @@
             </div>
             <div class="collapse navbar-collapse navbar-right">
                 <ul class="nav navbar-nav">
-                    <li class="<%= is_active?('/') %>">
-                        <%= link_to "Home", root_path %>
-                    </li>
                     <li class="<%= is_active?('/download') %>">
                         <%= link_to "Download", download_path %>
                     </li>
                     <li class="<%= is_active?('/static_document') %>">
                         <%= link_to "Document", static_document_path %>
+                    </li>
+                    <li class="<%= is_active?('/contact-us') %>">
+                        <%= link_to "Contact", contact_us_path %>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

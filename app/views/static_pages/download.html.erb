@@ -3,10 +3,10 @@
         <h2>Download</h2>
         <p class="lead">Software Download Center. Select the product you wish to download.</p>
     </div>
-    <div  class="container">
+    <div  class="container" style="max-width: 1024px;">
    		<% @products.each do |product| %>
 		<div class="row item" >
-			<h2><%= link_to product.name , product_download_path(product) %></h2>
+			<h1><%= link_to product.name , product_download_path(product) %></h1>
 			<div class="row">
 				<div class="col-md-12">
                     <% if product.versions.latest_version.first %>
@@ -69,6 +69,14 @@
                                                     <dt>Size</dt>
                                                     <dd><%= package_file.package_file_size %></dd>
                                                 </dl>
+                                                <% if  package_file.emergency_package %>
+                                                <dl class="dl-horizontal">
+                                                    <dt>Package status</dt>
+                                                    <dd>
+                                                        <span class="label label-limegreen">Emergency package</span>
+                                                    </dd>
+                                                </dl>
+                                                <% end %>
                                                 <dl class="dl-horizontal">
                                                     <dt></dt>
                                                     <dd>
@@ -92,13 +100,15 @@
                     <% end %>
 				</div>
 			</div>
+            <i><b><u><%= link_to "view all", product_download_path(product) %></u></b></i>
 		</div>
 		<% end %>
    	</div>
 </section>
 <section id="bottom">
-    <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-        <div class="row">            <div class="col-md-3 col-sm-6">
+    <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" style="max-width: 1024px;">
+        <div class="row">            
+            <div class="col-md-3 col-sm-6">
                 <div class="widget">
                     <h3>Announcements</h3>
                     <ul>
@@ -141,7 +151,7 @@
     </div>
 </section>
 <footer id="footer" class="midnight-blue">
-    <div class="container">
+    <div class="container" style="max-width: 1024px;">
         <div class="row">
             <div class="col-sm-6">
                 &copy; 2015&nbsp;&nbsp;&nbsp;<%= link_to 'Cronus Team', root_path , :title => "Cronus Team @ AIS" %>.&nbsp;&nbsp;All Rights Reserved.
@@ -173,7 +183,10 @@
   margin-bottom: 10px;
   border-radius: 6px;
   background-color: #eee;
-  padding: 10px 10px 10px 30px;
+  padding: 30px 30px 30px 30px;
+  margin: 10px 10px 10px 10px;
+  padding-right: 40px;
+  padding-left: 40px;
 }
 html {
   position: relative;

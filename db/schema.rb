@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826101435) do
+ActiveRecord::Schema.define(version: 20150909101135) do
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",              limit: 255
@@ -102,12 +102,14 @@ ActiveRecord::Schema.define(version: 20150826101435) do
     t.integer  "version_id",           limit: 4
     t.integer  "operating_system_id",  limit: 4
     t.boolean  "is_public",            limit: 1
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "product_id",           limit: 4
     t.string   "package_fingerprint",  limit: 255
     t.string   "checksum",             limit: 255
     t.string   "slug",                 limit: 255
+    t.text     "description",          limit: 65535
+    t.boolean  "emergency_package",    limit: 1
   end
 
   add_index "package_files", ["operating_system_id"], name: "index_package_files_on_operating_system_id", using: :btree

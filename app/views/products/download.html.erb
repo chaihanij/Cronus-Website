@@ -1,9 +1,9 @@
-<section id="contact-info" class="container">
+<section id="contact-info" class="container" style="max-width: 1024px;">
     <div class="center" style="padding-bottom:10px">                
         <h2><code><%= @product.name %> Download</code></h2>
     </div>
     <div class="row">
-        <div class="col-md-6 col-lg-6">
+        <div class="col-md-8 col-lg-8">
             <h2>Latest <%= @product.name %> Release</h2>
             <% if @latest_version then %>
                 <p>
@@ -23,8 +23,8 @@
                 </p>
                 <div class="accordion">
                 <div class="panel-group" id="accordion1">
-                    <% @latest_version.package_files.is_public.each do |package_file| %>
-                    <div class="panel panel-danger">
+                    <% @latest_version.package_files.is_public.each_with_index do |package_file,index| %>
+                    <div class="panel panel-danger">      
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne<%=package_file.id%>">
@@ -32,7 +32,7 @@
                                 <i class="fa fa-angle-right pull-right"></i>
                                 </a>
                             </h3>
-                        </div>
+                        </div>   
                         <div id="collapseOne<%=package_file.id%>" class="panel-collapse collapse">
                            <div class="panel-body">
                                 <div class="media accordion-inner">
@@ -65,6 +65,14 @@
                                         <dt>Size</dt>
                                         <dd><%= package_file.package_file_size %></dd>
                                     </dl>
+                                    <% if  package_file.emergency_package %>
+                                    <dl class="dl-horizontal">
+                                        <dt>Package status</dt>
+                                        <dd>
+                                            <span class="label label-limegreen">Emergency package</span>
+                                        </dd>
+                                    </dl>
+                                    <% end %> 
                                     <dl class="dl-horizontal">
                                         <dt></dt>
                                         <dd>
@@ -90,7 +98,22 @@
     <div class="row">
         <div class="col-md-12">
             <h4 class="page-header">Latest version</h4>
-             <div class="accordion">
+            
+            <%= form_tag product_download_path(@product), :method => 'get', :class => "form-inline" do %> 
+                <div class="form-group">
+                    <label>Sort by</label>
+                    <%= select_tag "column", options_for_select([['Version', 'name'],['Time' ,'updated_at']]), class: "form-control" %>
+                </div>
+                <div class="form-group">
+                    <label>Order by</label>
+                    <%= select_tag "order", options_for_select([['Desc' ,'desc'], ['Asc', 'asc']]), class: "form-control" %>
+                </div>
+                <div class="form-group">
+                    <%= submit_tag "submit", clsss: "btn btn-success" %>
+                </div>
+            <% end %>
+            <br>
+            <div class="accordion">
                 <div class="panel-group" id="accordion2">
                     <% if @list_version %>
                         <% @list_version.each do |version| %>
@@ -166,6 +189,14 @@
                                                                     <dt>Size</dt>
                                                                     <dd><%= package_file.package_file_size %></dd>
                                                                 </dl>
+                                                                <% if  package_file.emergency_package %>
+                                                                <dl class="dl-horizontal">
+                                                                    <dt>Package status</dt>
+                                                                    <dd>
+                                                                        <span class="label label-limegreen">Emergency package</span>
+                                                                    </dd>
+                                                                </dl>
+                                                                <% end %>               
                                                                 <dl class="dl-horizontal">
                                                                     <dt></dt>
                                                                     <dd>
@@ -190,3 +221,13 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    // accordian
+    $('.accordion-toggle').on('click', function(){
+        $(this).closest('.panel-group').children().each(function(){
+        $(this).find('>.panel-heading').removeClass('active');
+         });
+
+        $(this).closest('.panel-heading').toggleClass('active');
+    });
+</script>

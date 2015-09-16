@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   def index
     authorize! :manage, @users , :message => "Access denied."
     if params[:sort] == nil then
-      @users = User.search(params[:search]).page(params[:page]).per(50)
+      @users = User.search(params[:search]).page(params[:page]).per(25)
     else
-      @users = User.order(sort_column + " " + sort_direction).search(params[:search]).page(params[:page]).per(50)
+      @users = User.order(sort_column + " " + sort_direction).search(params[:search]).page(params[:page]).per(25)
     end
   end
 

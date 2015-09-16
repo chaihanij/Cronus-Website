@@ -7,9 +7,9 @@ class EventsController < ApplicationController
   def index
     authorize! :manage, @event , :message => "Access denied."
     if params[:sort] == nil then
-      @events = Event.search(params[:search]).new_create.page(params[:page]).per(50)
+      @events = Event.search(params[:search]).new_create.page(params[:page]).per(25)
     else
-      @events = Event.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(50)
+      @events = Event.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(25)
     end
   end
 

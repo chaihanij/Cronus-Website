@@ -18,7 +18,7 @@ class StaticPagesController < ApplicationController
                   .search(params[:search])
                   .order(:created_at => :desc)
                   .page(params[:page])
-                  .per(5)
+                  .per(25)
     end 
     
     def announcement
@@ -26,14 +26,14 @@ class StaticPagesController < ApplicationController
                         .search(params[:search])
                         .order(:created_at => :desc)
                         .page(params[:page])
-                        .per(5)
+                        .per(25)
     end   
     def wiki
       @wikis = Wiki.is_public
               .search(params[:search])
               .order(:created_at => :desc)
               .page(params[:page])
-              .per(5)
+              .per(25)
     end
 
     def document

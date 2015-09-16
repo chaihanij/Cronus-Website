@@ -6,9 +6,9 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     if params[:sort] == nil then
-      @contacts = Contact.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(50)
+      @contacts = Contact.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(25)
     else
-      @contacts = Contact.search(params[:search]).order(sort_column + " " + sort_direction).order(:created_at => :desc).page(params[:page]).per(50)
+      @contacts = Contact.search(params[:search]).order(sort_column + " " + sort_direction).order(:created_at => :desc).page(params[:page]).per(25)
     end 
   end
 

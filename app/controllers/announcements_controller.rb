@@ -7,9 +7,13 @@ class AnnouncementsController < ApplicationController
   def index
     authorize! :manage, @announcements , :message => "Access denied."
     if params[:sort] == nil then
-      @announcements = Announcement.search(params[:search]).new_create.page(params[:page]).per(50)
+      @announcements = Announcement.search(params[:search])
+                                   .new_create.page(params[:page])
+                                   .per(25)
     else
-      @announcements = Announcement.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(50)
+      @announcements = Announcement.search(params[:search])
+                                   .order(sort_column + " " + sort_direction)
+                                   .page(params[:page]).per(25)
     end
 
   end

@@ -27,7 +27,7 @@
     <div class="form-group has-warning">
         <label class="col-sm-2 control-label">Version</label>
         <div class="col-sm-8">
-          <%= f.select(:version_id, @versions.is_public.collect {|mt| [ mt.name, mt.id ] }, {:include_blank => 'Please select version'}, class: 'form-control',required: "required") %>
+          <%= f.select(:version_id, @product.versions.is_public.collect {|mt| [ mt.name, mt.id ] }, {:include_blank => 'Please select version'}, class: 'form-control',required: "required") %>
         </div>
     </div>
     <div class="form-group has-warning">
@@ -55,6 +55,22 @@
           <%= f.text_field :release_date ,id: "release_date", class: 'form-control', required: "required",placeholder: "YYYY-MM-DD"  %>
         </div>
     </div>
+    <div class="form-group has-warning">
+        <label class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-8">
+          <%= f.text_area :description, id:"description", class: "form-control", rows: "5"%>
+          <i>(maximum is 255 characters) </i>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3 col-sm-offset-2">
+            <div class="checkbox">
+                <label>
+                    <%= f.check_box :emergency_package %><b>Emergency package</b>
+                </label>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-sm-3 col-sm-offset-2">
             <div class="checkbox">
@@ -75,6 +91,35 @@ $(document).ready(function() {
     $.fn.datepicker.defaults.format = "yyyy-mm-dd";
     $('#build_date').datepicker();
     $('#release_date').datepicker();
+    var  editor2 = $('#description').summernote(
+      {   
+          onImageUpload: function(files, editor, welEditable) {
+                sendFile(files[0], editor, welEditable);
+          },
+          height:300, 
+          maximumImageFileSize: 5242880
+      }
+    );
+    function sendFile(file, editor, welEditable) {
+        var data = new FormData();
+        data.append("image[imageFile]", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/image_json",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+              $('#body').summernote('editor.insertImage', data.url);
+            },
+            error: function (xhr) {
+              var errors = $.parseJSON(xhr.responseText).errors
+              console.log(xhr);
+              alert(errors);
+            }
+        });
+    }
 });
 </script>
 

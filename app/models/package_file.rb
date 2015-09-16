@@ -8,7 +8,8 @@ class PackageFile < ActiveRecord::Base
   has_attached_file :package, :use_timestamp => false, :preserve_files => "true"
   validates_attachment_content_type :package, :content_type => [/\Aapplication\/.*\Z/, /\Aapplication\/x-rpm/, /application\/x-rpm/, /\Application\/octet-stream/ ]
   validates_attachment_size :package, :less_than => 100.megabytes 
-  
+  validates :description, length: { maximum: 255, too_long: "%{count} characters is the maximum allowed" }
+
   # Query 
   scope :is_public, -> { where(:is_public => 1) }
   scope :last_updated, -> { limit(10).order(:updated_at => :desc) } 

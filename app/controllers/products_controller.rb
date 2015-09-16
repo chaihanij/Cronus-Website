@@ -8,9 +8,14 @@ class ProductsController < ApplicationController
   def index
     authorize! :manage, @product , :message => "Access denied."
     if params[:sort] == nil then
-        @products = Product.search(params[:search]).order(:created_at => :desc).page(params[:page]).per(50)
+        @products = Product.search(params[:search])
+                           .order(:created_at => :desc)
+                           .page(params[:page]).per(25)
     else
-        @products = Product.search(params[:search]).order(sort_column + " " + sort_direction).order(:created_at => :desc).page(params[:page]).per(50)
+        @products = Product.search(params[:search])
+                           .order(sort_column + " " + sort_direction)
+                           .order(:created_at => :desc)
+                           .page(params[:page]).per(25)
     end
   end
 
@@ -74,9 +79,23 @@ class ProductsController < ApplicationController
     # logger.debug "========================================="
     # logger.debug "#{@latest_version}"
     # logger.debug "========================================="
-    @list_version= @product.versions.is_public
-    if @latest_version then
-      @list_version = @product.versions.with_out_latest(@latest_version.id).list_static_download
+    if params[:column] == nil then
+      @list_version = @product.versions.is_public
+      if @latest_version then
+        @list_version = @product.versions
+                                .with_out_latest(@latest_version.id)
+                                .list_static_download
+      end
+    else
+      @list_version = @product.versions
+                             .is_public
+                             .order(params[:column] + ' ' + params[:order])
+      if @latest_version then
+        @list_version = @product.versions
+                                .with_out_latest(@latest_version.id)
+                                .list_static_download
+                                .order(params[:column] + ' ' + params[:order])
+      end
     end
   end
 

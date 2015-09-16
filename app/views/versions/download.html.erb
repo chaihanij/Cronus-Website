@@ -1,4 +1,4 @@
-<section id="blog" class="container">
+<section id="blog" class="container" style="max-width: 1024px;">
     <div class="center">
         <h2>Download <code><%= @version.product.name %></code> version <code><%= @version.name %></code></h2>
     </div>
@@ -46,6 +46,16 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label"><b>Description</b></label>
+                            <div class="col-sm-8">
+                                <% if (@version.description != nil) then %>
+                                <div class="jumbotron">
+                                    <%= @version.description.html_safe %>
+                                </div>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label"><b>Packges</b></label>
                             <div class="col-sm-8">                                    
                                 <% @version.package_files.is_public.each_with_index do |package_file, index| %>
@@ -78,23 +88,20 @@
                                         <dt>Size</dt>
                                         <dd><%= package_file.package_file_size %></dd>
                                     </dl>
+                                    <% if  package_file.emergency_package %>
+                                    <dl class="dl-horizontal">
+                                        <dt>Package status</dt>
+                                        <dd>
+                                            <span class="label label-limegreen">Emergency package</span>
+                                        </dd>
+                                    </dl>
+                                    <% end %>
                                     <dl class="dl-horizontal">
                                         <dt></dt>
                                         <dd>
                                             <%= link_to "Download " + package_file.package_file_name, package_file.package.url, class:"btn btn-primary" %>
                                         </dd>
                                     </dl>
-                                    
-                                </div>
-                                <% end %>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label"><b>Description</b></label>
-                            <div class="col-sm-9">
-                                <% if (@version.description != nil) then %>
-                                <div class="jumbotron">
-                                    <%= @version.description.html_safe %>
                                 </div>
                                 <% end %>
                             </div>
