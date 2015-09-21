@@ -102,15 +102,15 @@
             <%= form_tag product_download_path(@product), :method => 'get', :class => "form-inline" do %> 
                 <div class="form-group">
                     <label>Sort by</label>
-                    <%= select_tag "column", options_for_select([['Version', 'name'],['Time' ,'updated_at']]), class: "form-control" %>
+                    <%= select_tag "column", options_for_select([['Version', 'name'],['Time' ,'updated_at']]), :include_blank => 'Please select value', class: "form-control" %>
                 </div>
                 <div class="form-group">
                     <label>Order by</label>
-                    <%= select_tag "order", options_for_select([['Desc' ,'desc'], ['Asc', 'asc']]), class: "form-control" %>
+                    <%= select_tag "order", options_for_select([['Desc' ,'desc'], ['Asc', 'asc']]), :include_blank => 'Please select value', class: "form-control", :onchange => "this.form.submit()" %>
                 </div>
-                <div class="form-group">
-                    <%= submit_tag "submit", clsss: "btn btn-success" %>
-                </div>
+              <!--  <div class="form-group">
+              //      <%= submit_tag "submit", clsss: "btn btn-success" %>
+              //  </div> -->
             <% end %>
             <br>
             <div class="accordion">
