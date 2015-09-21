@@ -81,12 +81,19 @@ class ProductsController < ApplicationController
     # logger.debug "========================================="
     if params[:column] == nil then
       @list_version = @product.versions.is_public
+      debug=params[:column]
+    # logger.debug "========================================="
+    # logger.debug "params[:colunmn]  #{debug}"
+    # logger.debug "========================================="
       if @latest_version then
         @list_version = @product.versions
                                 .with_out_latest(@latest_version.id)
                                 .list_static_download
       end
     else
+      if params[:column] == "" then
+       params[:column] = "name"
+      end 
       @list_version = @product.versions
                              .is_public
                              .where(:broken_version => false) 
