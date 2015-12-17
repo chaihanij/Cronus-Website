@@ -6,7 +6,7 @@ class Package < ActiveRecord::Base
   belongs_to :operating_system
   
   has_attached_file :package, :use_timestamp => false, :preserve_files => "true"
-  validates_attachment_content_type :package, :content_type => [/\Aapplication\/.*\Z/, /\Aapplication\/x-rpm/, /application\/x-rpm/, /\Application\/octet-stream/  ]
+  validates_attachment_content_type :package, :content_type => [/\Aapplication\/.*\Z/, /\Aapplication\/x-rpm/, /application\/x-rpm/, /\Application\/octet-stream/, "*/*" ]
   # validates_attachment_presence :documnet
   validates_attachment_size :package, :less_than => 100.megabytes 
 
