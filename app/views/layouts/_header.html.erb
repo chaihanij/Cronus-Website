@@ -21,12 +21,6 @@
                     <li class="<%= is_active?('/contact-us') %>">
                         <%= link_to "Contact", contact_us_path %>
                     </li>
-                    <li>
-                       <a href="http://10.239.129.153/r/">Gerrit</a> 
-                    </li>
-                    <li>
-                        <a href="http://10.239.129.153/redmine">Redmine</a>
-                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <strong>Other</strong>&nbsp;<span class="caret"></span>
@@ -40,6 +34,12 @@
                             </li>
                             <li>
                                 <%= link_to 'Wiki', static_wiki_path, :class => 'navbar-link' %>
+                            </li>
+                            <li>
+                                <a class="navbar-link" href="http://10.239.129.153/r/">Gerrit</a> 
+                            </li>
+                            <li>
+                                <a class="navber-link" href="http://10.239.129.153/redmine">Redmine</a>
                             </li>
                         </ul>
                     </li>
