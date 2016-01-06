@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <% @products.each do |product| %>
+                <% if product.documents.is_public.any? then %>
                 <div class="row" >
                     <div class="page-header">
                         <h4><%= link_to product.name , product_doc_path(product) %></h4>
@@ -19,6 +20,7 @@
                         <% end %>
                     <% end %>
                 </div>
+                <% end %>
                 <% end %>
             </div>
         </div>
