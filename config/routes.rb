@@ -18,13 +18,13 @@ Rails.application.routes.draw do
       resources :package_files
     end
   end
-  
+
   resources :image_json
-  
+
   # ------------------
   # Config routes
   root 'static_pages#home'
-  
+
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   resources :events
   resources :announcements do 
@@ -43,20 +43,21 @@ Rails.application.routes.draw do
   get '/static_wiki' ,  to:'static_pages#wiki'
   get '/static_document', to: 'static_pages#document'
   get '/unauthorized', to: 'static_pages#unauthorized_page'
-  
+
   # API V1
   namespace :api, defaults: {:format=> 'json'} do
     namespace :v1 do
       resources :documents do
         collection do
             get 'document_by_prodcut'
-        end 
+        end
       end
       resources :products do
         collection do
           get 'products_is_public'
         end
       end
+      resources :packages
     end
   end
   # -------------
