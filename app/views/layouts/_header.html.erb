@@ -15,9 +15,6 @@
                     <li class="<%= is_active?('/download') %>">
                         <%= link_to "Products", download_path %>
                     </li>
-                    <li class="<%= is_active?('/newdownloads') %>">
-                        <%= link_to "Downloads", newdownloads_path %>
-                    </li>
                     <li class="<%= is_active?('/static_document') %>">
                         <%= link_to "Document", static_document_path %>
                     </li>
@@ -34,6 +31,9 @@
                             </li>
                             <li>
                                 <%= link_to 'Event', static_event_path, :class => 'navbar-link' %>
+                            </li>
+                            <li>
+                                <%= link_to "Downloads", newdownloads_path, :class => 'navbar-link' %>
                             </li>
                             <li>
                                 <%= link_to 'Wiki', static_wiki_path, :class => 'navbar-link' %>
