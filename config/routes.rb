@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
   resources :events
-  resources :announcements do 
+  resources :announcements do
     collection do
       get 'feed'
     end
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get '/static_wiki' ,  to:'static_pages#wiki'
   get '/static_document', to: 'static_pages#document'
   get '/unauthorized', to: 'static_pages#unauthorized_page'
-
+  get '/newdownloads' ,to: 'static_pages#newdownloads'
   # API V1
   namespace :api, defaults: {:format=> 'json'} do
     namespace :v1 do
@@ -69,11 +69,11 @@ Rails.application.routes.draw do
   #   get '/', to:'static_pages#index'
   # end
   # namespace :admin do
-  #   resources :users do 
-  #     member do 
+  #   resources :users do
+  #     member do
   #       post 'update_role'
-  #     end 
-  #   end 
+  #     end
+  #   end
   # end
   # namespace :admin do
   #   resources :wikis
