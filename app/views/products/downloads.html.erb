@@ -1,0 +1,31 @@
+<section id="contact-info" class="container" style="max-width: 1024px;">
+    <div class="center" style="padding-bottom:10px"> 
+        <h2><code><%= @product.name %> Download</code></h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>OS</th>
+                        <th>Version</th>
+                        <th>Release date</th>
+                        <th>File Download</th>
+                        <th>Size</th>
+                        <th>More</th>
+                    </tr>
+                    <% @product.package_files.is_public.each_with_index do |package ,index| %>
+                    <tr>
+                        <td><%= package.operating_system.name + " " + package.operating_system.version %></td>
+                        <td><%= link_to package.version.name, [package.version.product, package.version] %></td>
+                        <td><%= package.release_date %></td>
+                        <td><%= link_to package.package_file_name, package.package.url() %></td>
+                        <td><%= format_mb(package.package_file_size) %></td>
+                        <td><%= link_to "more" , [package.version.product, package.version, package]%></td>
+                    </tr>
+                    <% end %>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

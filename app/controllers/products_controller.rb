@@ -70,6 +70,10 @@ class ProductsController < ApplicationController
       end
     end
   end
+  # GET /producets/downloads/1
+  def downloads
+    @product = Product.friendly.find(params[:product_id])
+  end
 
   # GET /products/download/1
   def download

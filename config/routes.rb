@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :products do
     get '/download', to: 'products#download'
+    get '/downloads' ,to: 'products#downloads'
     get '/doc', to: 'products#document'
     resources :packages
     resources :documents
