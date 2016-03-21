@@ -1,0 +1,106 @@
+<section id="contact-info">
+	<div class="center">
+		<h2>Download</h2>
+		<p class="lead">Software Download Center. Select the product you wish to download.</p>
+	</div>
+	<div class="container" style="max-width: 1024px;">
+		<div class="row">
+			<div class="panel with-nav-tabs panel-info">
+				<div class="panel-heading">
+					<ul class="nav nav-tabs">
+						<% @products.each_with_index  do |product, i| %>
+							<% if i == 0 %>
+								<li class="active"><a href="#product_<%= i %>" aria-expanded="false" data-toggle="tab"><%= product.name %></a></li>
+							<% else %>
+							<li><a href="#product_<%= i %>" data-toggle="tab" aria-expanded="false" ><%= product.name %></a></li>
+							<% end %>
+						<% end %>
+					</ul>
+				</div>
+				<div class="panel-body">
+					<div class="tab-content">
+					<% @products.each_with_index  do |product, i| %>
+					<% if i == 0 %>
+					<div class="tab-pane fade in active" id="product_<%= i %>">
+					<% else %>
+					<div class="tab-pane fade" id="product_<%= i %>">
+					<% end %>
+					<div class="table-responsive">
+		                <table class="table">
+		                    <tr>
+		                        <th>OS</th>
+		                        <th>Version</th>
+		                        <th>Release date</th>
+		                        <th>File Download</th>
+		                        <th>Size</th>
+								<th>CheckSum</th>
+		                        <th>More</th>
+		                    </tr>
+		                    <% product.package_files.is_public.order(version_id: :desc).each_with_index do |package ,index| %>
+		                    <tr>
+		                        <td><%= package.operating_system.name + " " + package.operating_system.version %></td>
+		                        <td><%= link_to package.version.name, [package.version.product, package.version] %></td>
+		                        <td><%= package.release_date %></td>
+		                        <td><%= link_to package.package_file_name, package.package.url() %></td>
+		                        <td><%= format_mb(package.package_file_size) %></td>
+								<td><%= package.checksum %></td>
+		                        <td><%= link_to "more" , [package.version.product, package.version, package], class: "btn btn-success" %></td>
+		                    </tr>
+		                    <% end %>
+		                </table>
+		            </div>
+					</div>
+					<% end %>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+<style type="text/css">
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.nav-tabs > li {
+    margin-bottom: -1px;
+    border-bottom: 0px;
+}
+.panel.with-nav-tabs .panel-heading{
+		padding: 5px 5px 0 5px;
+}
+.panel.with-nav-tabs .nav-tabs{
+		border-bottom: none;
+}
+.panel.with-nav-tabs .nav-justified{
+		margin-bottom: -1px;
+}
+/********************************************************************/
+/*** PANEL INFO ***/
+.with-nav-tabs.panel-info .nav-tabs > li > a,
+.with-nav-tabs.panel-info .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li > a:focus {
+		color: #31708f;
+}
+.with-nav-tabs.panel-info .nav-tabs > .open > a,
+.with-nav-tabs.panel-info .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-info .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li > a:focus {
+		color: #31708f;
+			background-color: #bce8f1;
+				border-color: transparent;
+}
+.with-nav-tabs.panel-info .nav-tabs > li.active > a,
+.with-nav-tabs.panel-info .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li.active > a:focus {
+		color: #31708f;
+			background-color: #fff;
+				border-color: #bce8f1;
+					border-bottom-color: transparent;
+}
+</style>

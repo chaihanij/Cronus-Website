@@ -4,7 +4,8 @@ module Api
       include ApiHelper
       respond_to :json
       def index
-		
+		id = params[:prodcut_id]
+        
 	  end
 	end
   end

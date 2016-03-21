@@ -9,7 +9,7 @@ class StaticPagesController < ApplicationController
     end
     def download
       @products = Product.is_public.order(:name => :asc)
-    end   
+    end
     def contact
       @contact = Contact.new
     end
@@ -19,15 +19,15 @@ class StaticPagesController < ApplicationController
                   .order(:created_at => :desc)
                   .page(params[:page])
                   .per(25)
-    end 
-    
+    end
+
     def announcement
       @announcements = Announcement.is_public
                         .search(params[:search])
                         .order(:created_at => :desc)
                         .page(params[:page])
                         .per(25)
-    end   
+    end
     def wiki
       @wikis = Wiki.is_public
               .search(params[:search])
@@ -39,7 +39,11 @@ class StaticPagesController < ApplicationController
     def document
       @products = Product.is_public.order(:name => :asc)
     end
-    
+
+    def newdownloads
+      @products = Product.is_public.order(:name => :asc)
+    end
+
     def unauthorized_page
       @announcement_limit_five = Announcement.limit_five
       @events_limit_five = Event.limit_five
