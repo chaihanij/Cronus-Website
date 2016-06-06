@@ -1,5 +1,5 @@
 class VersionsController < ApplicationController
-  
+ 
   helper_method :sort_column, :sort_direction
 
   before_action :set_product
@@ -9,6 +9,7 @@ class VersionsController < ApplicationController
   # GET /versions.json
   def index
     # @versions = @product.versions.all
+    authorize! :manage, @versions , :message => "Access denied."
     if params[:sort] == nil then
       @versions = @product
                   .versions
@@ -28,6 +29,7 @@ class VersionsController < ApplicationController
   # GET /versions/1
   # GET /versions/1.json
   def show
+    authorize! :manage, @version, :message => "Access denied."
   end
 
   # GET /versions/new
@@ -61,6 +63,7 @@ class VersionsController < ApplicationController
   # PATCH/PUT /versions/1
   # PATCH/PUT /versions/1.json
   def update
+    authorize! :manage, @version, :message => "Access denied."
     if @version.latest == true
       logger.debug "========= version latest  #{@version.latest}"
       @product.versions.set_latest_all_false
@@ -79,6 +82,7 @@ class VersionsController < ApplicationController
   # DELETE /versions/1
   # DELETE /versions/1.json
   def destroy
+    authorize! :manage, @version, :message => "Access denied."
     @version.destroy
     respond_to do |format|
       format.html { redirect_to product_version_url , notice: 'Version was successfully destroyed.' }

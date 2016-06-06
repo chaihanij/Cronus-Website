@@ -39,7 +39,7 @@
 		                    <% product.package_files.is_public.order(version_id: :desc).each_with_index do |package ,index| %>
 		                    <tr>
 		                        <td><%= package.operating_system.name + " " + package.operating_system.version %></td>
-		                        <td><%= link_to package.version.name, [package.version.product, package.version] %></td>
+                                <td><%= link_to package.version.name, product_version_download_path(package.version.product, package.version) %></td>
 		                        <td><%= package.release_date %></td>
 		                        <td><%= link_to package.package_file_name, package.package.url() %></td>
 		                        <td><%= format_mb(package.package_file_size) %></td>
