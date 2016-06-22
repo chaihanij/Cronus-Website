@@ -1,4 +1,5 @@
 class Announcement < ActiveRecord::Base
+    is_impressionable
     has_attached_file :image, :styles => { :cover => "1400x730^", :medium => "616x293^", :thumb => "200x300^" }, convert_options: { thumb: " -gravity center -crop '100x100+0+0'", medium: " -gravity center -crop '616x293+0+0'", cover: " -gravity center -crop '1400x730+0+0'"}, :default_url => "/images/Announcement/:style/missing.png"
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
     
@@ -10,18 +11,21 @@ class Announcement < ActiveRecord::Base
     scope :limit_tree, -> { where(:is_public => 1).limit(3).order(:created_at => :desc) }  
 
     def self.search(search)
-    		if search
-      		where(['lower(title) LIKE ? OR lower(description) LIKE ?', "%#{search.strip.downcase}%", "%#{search.strip.downcase}%"])
-    		else
-      		all
-    		end
-  	end
+        if search
+            where(['lower(title) LIKE ? OR lower(description) LIKE ?', "%#{search.strip.downcase}%", "%#{search.strip.downcase}%"])
+        else
+            all
+        end
+    end
+
     def self.new_update
       order(:updated_at => :desc)
     end
+
     def self.new_create
       order(:created_at => :desc)
-    end 
+    end
+
     def self.is_public
        where(:is_public => 1)
     end

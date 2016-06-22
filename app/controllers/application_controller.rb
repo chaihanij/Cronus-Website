@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  impressionist
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   before_action :set_product
@@ -10,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  private 
+  private
   def set_product
     @products_nav = Product.all
   end

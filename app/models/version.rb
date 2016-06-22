@@ -1,5 +1,5 @@
 class Version < ActiveRecord::Base
-  
+  is_impressionable
   belongs_to :product
   has_many :package_files
 

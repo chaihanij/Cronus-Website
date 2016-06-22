@@ -85,3 +85,5 @@ gem 'html5shiv-js-rails'
 gem 'respond-js-rails'
 gem 'normalize-rails'
 gem "pdfjs_rails"
+
+gem 'impressionist'
