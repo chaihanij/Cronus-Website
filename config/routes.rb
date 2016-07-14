@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   get '/static_document', to: 'static_pages#document'
   get '/unauthorized', to: 'static_pages#unauthorized_page'
   get '/newdownloads' ,to: 'static_pages#newdownloads'
+  get '/subscribes', to: 'static_pages#subscribes'
+
   # API V1
   namespace :api, defaults: {:format=> 'json'} do
     namespace :v1 do

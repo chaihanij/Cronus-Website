@@ -50,4 +50,7 @@ class StaticPagesController < ApplicationController
       @wikis = Wiki.limit_five
       @products = Product.limit_five
     end
+
+    def subscribes
+    end
 end
