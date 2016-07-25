@@ -52,5 +52,12 @@ class StaticPagesController < ApplicationController
     end
 
     def subscribes
+        if current_user == nil                                
+            authorize! :manage, @users , :message => "Access denied."
+        end
+    end
+
+    def query_subscribes 
+        authorize! :manage, @users , :message => "Access denied."
     end
 end
